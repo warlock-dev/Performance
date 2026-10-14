@@ -1,0 +1,3094 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="theme-color" content="#0C0D0E" />
+  <meta name="description" content="APEX v3.0 Quiet Intelligence Edition — Personal Execution, FSRS-6 Recall, and Calibration" />
+  <title>APEX — Quiet Intelligence</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            serif: ['Instrument Serif', 'Georgia', 'serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* =====================================================================
+     * EXPERT COLOR GRADING: PERCEPTUAL UNIFORMITY & VISUAL CALM
+     * Default Dark: "Carbon Studio" (#0C0D0E)
+     * Warm Light:   "Editorial Paper" (#F7F6F2)
+     * ===================================================================== */
+    :root {
+      --bg-canvas: #F7F6F2;
+      --bg-surface: #FFFFFF;
+      --bg-subtle: #F0EFEA;
+      --bg-elevated: #FAF9F5;
+      --border-hairline: #E5E4DF;
+      --border-focus: #D0CFC9;
+      --text-primary: #161615;
+      --text-secondary: #65645E;
+      --text-muted: #8C8B85;
+      --accent-sage: #059669;
+      --accent-sage-soft: rgba(5, 150, 105, 0.08);
+      --accent-amber: #D97706;
+      --accent-amber-soft: rgba(217, 119, 6, 0.08);
+      --accent-coral: #E11D48;
+      --accent-coral-soft: rgba(225, 29, 72, 0.08);
+      color-scheme: light;
+    }
+
+    html.dark {
+      --bg-canvas: #0C0D0E;
+      --bg-surface: #131518;
+      --bg-subtle: #181B20;
+      --bg-elevated: #1C2026;
+      --border-hairline: #22252A;
+      --border-focus: #323740;
+      --text-primary: #F3F4F6;
+      --text-secondary: #9CA3AF;
+      --text-muted: #6B7280;
+      --accent-sage: #10B981;
+      --accent-sage-soft: rgba(16, 185, 129, 0.11);
+      --accent-amber: #F59E0B;
+      --accent-amber-soft: rgba(245, 158, 11, 0.11);
+      --accent-coral: #F43F5E;
+      --accent-coral-soft: rgba(244, 63, 94, 0.11);
+      color-scheme: dark;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      letter-spacing: -0.011em;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .surface-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-hairline);
+      border-radius: 14px;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .surface-subtle {
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-hairline);
+      border-radius: 10px;
+    }
+
+    .input-quiet {
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-primary);
+      border-radius: 8px;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+    .input-quiet:focus {
+      outline: none;
+      border-color: var(--accent-sage);
+      background-color: var(--bg-surface);
+    }
+    .input-quiet::placeholder {
+      color: var(--text-muted);
+    }
+
+    .font-mono-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .text-secondary-tone { color: var(--text-secondary); }
+    .text-muted-tone { color: var(--text-muted); }
+    .border-hairline { border-color: var(--border-hairline); }
+
+    kbd {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      padding: 0.1rem 0.36rem;
+      border-radius: 5px;
+      border: 1px solid var(--border-hairline);
+      background-color: var(--bg-subtle);
+      color: var(--text-secondary);
+    }
+
+    details > summary {
+      list-style: none;
+    }
+    details > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    @keyframes breatheDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.92); }
+    }
+    .breathe-dot {
+      animation: breatheDot 2.8s infinite ease-in-out;
+    }
+
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-focus); border-radius: 9999px; }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col selection:bg-emerald-500/20 selection:text-emerald-400">
+
+  <!-- MINIMAL STICKY HEADER -->
+  <header class="sticky top-0 z-30 backdrop-blur-md bg-[var(--bg-canvas)]/85 border-b border-hairline">
+    <div class="max-w-[960px] mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-3">
+
+      <!-- Left: Quiet Brand Identity -->
+      <div class="flex items-center gap-3">
+        <div class="w-7 h-7 rounded-lg flex items-center justify-center border border-hairline bg-[var(--bg-surface)] text-[var(--accent-sage)]">
+          <i class="fa-solid fa-compass-drafting text-xs"></i>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="font-semibold tracking-tight text-sm">APEX</span>
+          <span id="sampleDataGlobalBadge" class="hidden text-[10px] font-mono-num px-2 py-0.5 rounded-full bg-[var(--accent-amber-soft)] text-[var(--accent-amber)] cursor-pointer" onclick="window.apexApp.handleSampleDataAction()" title="Click to clear sample data and start clean">
+            Sample Mode · Clear
+          </span>
+        </div>
+      </div>
+
+      <!-- Center: 5-Pill Floating Navigation -->
+      <nav class="flex items-center p-1 rounded-full surface-subtle" aria-label="Core Views">
+        <button onclick="window.apexApp.switchTab('execution')" id="tab-execution" class="nav-pill px-3.5 py-1 rounded-full text-xs font-medium transition">
+          Today
+        </button>
+        <button onclick="window.apexApp.switchTab('mirror')" id="tab-mirror" class="nav-pill px-3.5 py-1 rounded-full text-xs font-medium transition">
+          Mirror
+        </button>
+        <button onclick="window.apexApp.switchTab('skills')" id="tab-skills" class="nav-pill px-3.5 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 transition">
+          <span>Recall</span>
+          <span id="dueSkillsBadge" class="w-4 h-4 rounded-full text-[10px] font-mono-num inline-flex items-center justify-center bg-[var(--accent-amber-soft)] text-[var(--accent-amber)]">0</span>
+        </button>
+        <button onclick="window.apexApp.switchTab('decisions')" id="tab-decisions" class="nav-pill px-3.5 py-1 rounded-full text-xs font-medium transition">
+          Decisions
+        </button>
+        <button onclick="window.apexApp.switchTab('weekly')" id="tab-weekly" class="nav-pill px-3.5 py-1 rounded-full text-xs font-medium transition">
+          Review
+        </button>
+      </nav>
+
+      <!-- Right: Calm Utility Controls -->
+      <div class="flex items-center gap-1.5">
+        <button onclick="window.apexApp.openNightlyReviewModal()" class="px-2.5 py-1.5 rounded-lg text-xs font-medium text-secondary-tone hover:text-[var(--text-primary)] hover:bg-[var(--bg-subtle)] transition flex items-center gap-1.5" title="2-Minute Nightly Check-In (Shortcut: R)">
+          <i class="fa-regular fa-moon text-[11px]"></i>
+          <span class="hidden md:inline">Check-In</span>
+        </button>
+
+        <button onclick="window.apexApp.toggleTheme()" class="p-2 rounded-lg text-xs text-secondary-tone hover:text-[var(--text-primary)] hover:bg-[var(--bg-subtle)] transition" title="Switch Color Grade: Carbon Studio / Editorial Paper">
+          <i id="themeToggleIcon" class="fa-solid fa-sun text-xs"></i>
+        </button>
+
+        <button onclick="window.apexApp.openSystemDrawer()" class="px-2.5 py-1.5 rounded-lg text-xs font-medium surface-subtle hover:border-[var(--border-focus)] transition flex items-center gap-1.5" title="System, Cloud Sync, Backups & 16 Unit Tests">
+          <span id="cloudStatusDot" class="w-1.5 h-1.5 rounded-full bg-[var(--accent-sage)]"></span>
+          <span class="hidden sm:inline">System</span>
+          <i class="fa-solid fa-sliders text-[10px] text-muted-tone"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-[960px] w-full mx-auto px-4 sm:px-8 py-8 space-y-8">
+
+    <!-- =================================================================== -->
+    <!-- VIEW 1: TODAY (SINGLE NEXT ACTION + PROGRESSIVE WOOP + QUIET QUEUE) -->
+    <!-- =================================================================== -->
+    <section id="view-execution" class="module-view space-y-8">
+
+      <!-- TOP CONTEXT: ACTIVE QUARTER HORIZON + NEXT USEFUL NUDGE -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-hairline">
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <span class="text-[11px] font-mono-num uppercase tracking-widest text-muted-tone">North Star</span>
+          <select id="selectActiveGoal" onchange="window.apexApp.selectGoal(this.value)" class="bg-transparent text-xs sm:text-sm font-medium text-[var(--text-primary)] focus:outline-none cursor-pointer border-b border-dashed border-[var(--border-focus)] pb-0.5">
+          </select>
+          <span id="activeGoalMeta" class="text-xs text-muted-tone font-mono-num"></span>
+          <button onclick="window.apexApp.openGoalModal()" class="text-xs text-muted-tone hover:text-[var(--text-primary)] px-1.5 py-0.5 rounded hover:bg-[var(--bg-subtle)] transition" title="New Long-Term Goal">+ Goal</button>
+        </div>
+
+        <button id="nextActionCtaBtn" onclick="window.apexApp.triggerNextUsefulAction()" class="text-xs text-secondary-tone hover:text-[var(--accent-sage)] flex items-center gap-1.5 transition self-start sm:self-auto">
+          <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-sage)] breathe-dot"></span>
+          <span id="nextActionDescription" class="truncate max-w-[280px]">Next action ready</span>
+          <i class="fa-solid fa-arrow-right text-[10px]"></i>
+        </button>
+      </div>
+
+      <!-- SPOTLIGHT: SINGLE FOCUS BAR (Hick's Law: One clear focal point) -->
+      <div class="surface-card p-6 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div class="space-y-1.5 flex-1">
+          <div class="flex items-center gap-2">
+            <span id="focusSessionStateBadge" class="text-[10px] font-mono-num uppercase tracking-widest px-2 py-0.5 rounded bg-[var(--accent-sage-soft)] text-[var(--accent-sage)] font-medium">
+              Current Focus
+            </span>
+            <span class="text-xs font-mono-num text-muted-tone">
+              Planned <strong id="focusPlannedMeta" class="font-normal text-secondary-tone">--m</strong> · Logged <strong id="focusLoggedMeta" class="font-normal text-secondary-tone">--m</strong>
+            </span>
+          </div>
+          <h1 id="focusActiveTaskLabel" class="text-lg sm:text-xl font-medium tracking-tight text-[var(--text-primary)]">
+            Select a task below to begin quiet execution
+          </h1>
+          <p id="focusActiveIfThenSub" class="text-xs text-secondary-tone">
+            Press <kbd>F</kbd> anytime to toggle timer, or <kbd>N</kbd> to queue a task.
+          </p>
+        </div>
+
+        <!-- Calm Monospace Timer + Minimal Controls -->
+        <div class="flex items-center gap-4 shrink-0">
+          <div id="focusClockContainer" class="px-4 py-2 rounded-xl surface-subtle">
+            <span id="focusTimerBigDisplay" class="font-mono-num text-3xl sm:text-4xl font-light tracking-tight">00:00</span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button id="btnFocusStartPause" onclick="window.apexApp.toggleFocusTimer()" class="px-4 py-2.5 rounded-xl text-xs font-medium bg-[var(--accent-sage)] text-white dark:text-slate-950 hover:opacity-95 transition flex items-center gap-2 shadow-sm">
+              <i id="focusStartPauseIcon" class="fa-solid fa-play text-[10px]"></i>
+              <span id="focusStartPauseText">Focus</span>
+            </button>
+            <button onclick="window.apexApp.commitFocusMinutesToTask(false)" class="p-2.5 rounded-xl text-xs surface-subtle text-secondary-tone hover:text-[var(--text-primary)] transition" title="Add +5m logged time">
+              +5m
+            </button>
+            <button onclick="window.apexApp.completeActiveFocusTask()" class="p-2.5 rounded-xl text-xs surface-subtle text-[var(--accent-sage)] hover:bg-[var(--accent-sage-soft)] transition" title="Mark Current Task Completed">
+              <i class="fa-solid fa-check"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAILY INTENTION (WOOP / MCII) WITH PROGRESSIVE DISCLOSURE -->
+      <div class="surface-card p-6 space-y-4">
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2.5">
+            <span class="text-xs font-medium text-[var(--text-primary)]">Daily Intention</span>
+            <span id="woopScoreBadge" class="text-[11px] font-mono-num px-2 py-0.5 rounded-full bg-[var(--accent-sage-soft)] text-[var(--accent-sage)]">
+              Intention Set
+            </span>
+            <span id="missionSavedIndicator" class="text-[11px] font-mono-num text-[var(--accent-sage)] opacity-0 transition-opacity">Saved</span>
+          </div>
+          <button onclick="window.apexApp.toggleWoopEditor()" id="btnToggleWoopEditor" class="text-xs text-secondary-tone hover:text-[var(--text-primary)] transition flex items-center gap-1">
+            <span id="woopToggleLabel">Edit Intention</span>
+            <i class="fa-solid fa-pen text-[10px]"></i>
+          </button>
+        </div>
+
+        <!-- Collapsed Quiet Summary View (Shown when WOOP is filled) -->
+        <div id="woopSummaryView" class="space-y-2">
+          <p id="woopSummaryWish" class="text-sm sm:text-base font-medium text-[var(--text-primary)]"></p>
+          <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-secondary-tone">
+            <span id="woopSummaryOutcome"></span>
+            <span class="text-muted-tone">•</span>
+            <span id="woopSummaryRule" class="font-mono-num text-xs text-[var(--accent-sage)]"></span>
+          </div>
+        </div>
+
+        <!-- Expanded 4-Step WOOP Editor (Toggled on demand or if incomplete) -->
+        <div id="woopEditorForm" class="hidden pt-2 border-t border-hairline space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="sm:col-span-2">
+              <label class="block text-xs text-secondary-tone mb-1.5">1. Wish — What is today's single highest-leverage mission?</label>
+              <input id="inputDailyMission" type="text" onchange="window.apexApp.saveDailyMission()" placeholder="e.g., Ship deterministic FSRS-6 scheduler and verify all 16 unit tests" class="w-full input-quiet px-3.5 py-2 text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs text-secondary-tone mb-1.5">2. Outcome — Best observable result by tonight</label>
+              <input id="inputWoopOutcome" type="text" onchange="window.apexApp.saveDailyMission()" placeholder="e.g., Clean release live on GitHub Pages" class="w-full input-quiet px-3 py-2 text-xs" />
+            </div>
+            <div>
+              <label class="block text-xs text-secondary-tone mb-1.5">3. Obstacle — Primary internal friction likely to arise</label>
+              <input id="inputMissionIf" type="text" onchange="window.apexApp.saveDailyMission()" placeholder="e.g., Urge to check messages or over-polish early" class="w-full input-quiet px-3 py-2 text-xs" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="block text-xs text-secondary-tone mb-1.5">4. Plan — If that obstacle arises, then I will immediately:</label>
+              <input id="inputMissionThen" type="text" onchange="window.apexApp.saveDailyMission()" placeholder="e.g., Silence notifications for 45m and write the next pure math test assertion" class="w-full input-quiet px-3.5 py-2 text-xs" />
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between pt-1">
+            <details class="text-xs text-muted-tone">
+              <summary class="cursor-pointer hover:text-secondary-tone transition">Why this works (Oettingen &amp; Gollwitzer, d ≈ 0.65)</summary>
+              <p class="mt-1.5 text-secondary-tone max-w-xl leading-relaxed">
+                Mental Contrasting with Implementation Intentions (MCII) pairs a desired outcome with realistic internal friction and a pre-committed If-Then response, yielding a medium-to-large effect size ($d \approx 0.65$) across 94 meta-analyzed studies.
+              </p>
+            </details>
+            <button type="button" onclick="window.apexApp.toggleWoopEditor(false)" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-[var(--bg-subtle)] hover:border-[var(--border-focus)] text-[var(--text-primary)] transition">
+              Done
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TODAY'S EXECUTION QUEUE -->
+      <div class="surface-card p-6 space-y-5">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <h2 class="text-sm font-semibold tracking-tight">Today's Queue</h2>
+            <span id="executionStatsSummary" class="text-xs font-mono-num text-muted-tone">0/0 completed</span>
+          </div>
+
+          <!-- Inline Reality-Adjusted Estimate Pill -->
+          <div id="referenceClassBanner" class="text-xs font-mono-num text-[var(--accent-amber)] flex items-center gap-2">
+            <span id="referenceClassSuggestionText">40m → ~50m adjusted</span>
+            <button type="button" onclick="window.apexApp.applyReferenceClassEstimate()" class="underline hover:opacity-80">Apply</button>
+          </div>
+        </div>
+
+        <!-- Streamlined Single-Bar Task Creator -->
+        <form id="newTaskForm" onsubmit="window.apexApp.handleAddTask(event)" class="space-y-2.5">
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-2.5">
+            <div class="sm:col-span-6">
+              <input id="taskTitleInput" type="text" required placeholder="Add a task... (Press N)" class="w-full input-quiet px-3.5 py-2 text-xs sm:text-sm" />
+            </div>
+            <div class="sm:col-span-3">
+              <select id="taskCategoryInput" onchange="window.apexApp.updateReferenceClassPreview()" class="w-full input-quiet px-3 py-2 text-xs sm:text-sm">
+                <option value="Engineering">Engineering</option>
+                <option value="Deep Work">Deep Work</option>
+                <option value="Research / Reading">Research / Reading</option>
+                <option value="Writing">Writing</option>
+                <option value="Operations">Operations</option>
+              </select>
+            </div>
+            <div class="sm:col-span-2">
+              <input id="taskPlannedInput" type="number" min="5" max="480" step="5" value="40" required oninput="window.apexApp.updateReferenceClassPreview()" title="Planned Duration (minutes)" class="w-full input-quiet px-3 py-2 text-xs sm:text-sm font-mono-num" />
+            </div>
+            <div class="sm:col-span-1">
+              <button type="submit" class="w-full h-full py-2 px-3 rounded-lg bg-[var(--text-primary)] text-[var(--bg-canvas)] font-medium text-xs hover:opacity-90 transition flex items-center justify-center" title="Add Task">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Subtle Optional If-Then Trigger Input -->
+          <div class="flex items-center gap-2">
+            <input id="taskIfThenInput" type="text" placeholder="Optional If-Then shield (e.g., If stuck >15m → write one failing test)" class="w-full bg-transparent border-b border-hairline focus:border-[var(--accent-sage)] py-1 text-xs text-secondary-tone focus:outline-none" />
+          </div>
+        </form>
+
+        <!-- Clean Editorial Task Rows -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-hairline text-[11px] font-mono-num text-muted-tone">
+                <th class="py-2 font-normal">Task</th>
+                <th class="py-2 px-2 font-normal">Class</th>
+                <th class="py-2 px-2 font-normal">Planned</th>
+                <th class="py-2 px-2 font-normal">Actual (m)</th>
+                <th class="py-2 px-2 font-normal">Friction</th>
+                <th class="py-2 text-right font-normal">Focus</th>
+              </tr>
+            </thead>
+            <tbody id="executionTasksTableBody" class="divide-y divide-[var(--border-hairline)] text-xs sm:text-sm">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- QUIET 66-DAY HABIT RHYTHM CARD (Lally et al., 2010) -->
+      <div class="surface-card p-6 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="space-y-1 flex-1">
+            <div class="flex items-center gap-2.5">
+              <span class="text-xs font-medium text-secondary-tone">Keystone Habit Rhythm</span>
+              <span id="habitDaysDisplay" class="text-xs font-mono-num text-[var(--accent-sage)]">Day 28 / 66</span>
+              <span class="text-muted-tone">·</span>
+              <span id="habitAutomaticityScore" class="text-xs font-mono-num text-secondary-tone">71.9% automaticity</span>
+              <span id="habitMissedDisplay" class="text-[11px] font-mono-num text-muted-tone"></span>
+            </div>
+            <input id="inputHabitTitle" type="text" onchange="window.apexApp.updateHabitTitle(this.value)" class="w-full bg-transparent text-sm font-medium text-[var(--text-primary)] focus:outline-none border-b border-transparent focus:border-hairline pb-0.5" />
+          </div>
+
+          <div class="flex items-center gap-2 shrink-0">
+            <button onclick="window.apexApp.recordHabitRep(true)" class="px-3.5 py-1.5 rounded-lg text-xs font-medium bg-[var(--accent-sage-soft)] text-[var(--accent-sage)] hover:opacity-85 transition flex items-center gap-1.5">
+              <i class="fa-solid fa-check text-[10px]"></i>
+              <span>Complete Today</span>
+            </button>
+            <button onclick="window.apexApp.recordHabitRep(false)" class="px-2.5 py-1.5 rounded-lg text-xs text-muted-tone hover:text-secondary-tone surface-subtle transition" title="Simulate a missed day (Lally et al. 2010: a single miss does not reset automaticity)">
+              Miss 1d
+            </button>
+          </div>
+        </div>
+
+        <!-- Subtle Asymptotic Progress Bar & Expandable Curve -->
+        <div class="w-full h-1.5 rounded-full bg-[var(--bg-subtle)] overflow-hidden">
+          <div id="habitProgressBar" class="h-full bg-[var(--accent-sage)] transition-all duration-300" style="width: 72%"></div>
+        </div>
+
+        <details class="text-xs text-muted-tone">
+          <summary class="cursor-pointer hover:text-secondary-tone transition flex items-center justify-between">
+            <span>Inspect 66-day asymptotic automaticity curve (Lally et al., 2010)</span>
+            <i class="fa-solid fa-chevron-down text-[10px]"></i>
+          </summary>
+          <div class="mt-3 pt-3 border-t border-hairline space-y-2">
+            <p class="text-secondary-tone leading-relaxed">
+              Empirical tracking shows habit automaticity plateaus around $\mu = 66$ days along an asymptotic curve. Missing a single opportunity causes negligible decay—preventing all-or-nothing streak abandonment.
+            </p>
+            <div class="p-3 rounded-xl surface-subtle">
+              <svg id="lallyHabitSvg" viewBox="0 0 580 135" class="w-full h-28 overflow-visible"></svg>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 2: MIRROR (PLANNED VS ACTUAL + CALM FRICTION DIAGNOSTICS)      -->
+    <!-- =================================================================== -->
+    <section id="view-mirror" class="module-view hidden space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 pb-2 border-b border-hairline">
+        <div>
+          <h1 class="text-lg sm:text-xl font-medium tracking-tight">Reality Mirror</h1>
+          <p class="text-xs text-secondary-tone">Objective comparison of planned versus actual duration without self-blame.</p>
+        </div>
+        <button onclick="window.apexApp.openNightlyReviewModal()" class="px-3.5 py-1.5 rounded-lg text-xs font-medium surface-subtle hover:border-[var(--border-focus)] transition self-start sm:self-auto">
+          Launch 2-Min Check-In
+        </button>
+      </div>
+
+      <!-- 3 Quiet Telemetry Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="surface-card p-5 space-y-1">
+          <span class="text-xs text-secondary-tone">Completion Rate</span>
+          <div class="flex items-baseline gap-2 pt-1">
+            <span id="mirrorCompletionRate" class="font-mono-num text-2xl font-medium">0%</span>
+            <span id="mirrorCompletionSubtext" class="text-xs font-mono-num text-muted-tone">0 of 0</span>
+          </div>
+        </div>
+
+        <div class="surface-card p-5 space-y-1">
+          <span class="text-xs text-secondary-tone">Reality Multiplier (Actual / Planned)</span>
+          <div class="flex items-baseline gap-2 pt-1">
+            <span id="mirrorEstimationRatio" class="font-mono-num text-2xl font-medium">1.00x</span>
+            <span id="mirrorMapeSubtext" class="text-xs font-mono-num text-[var(--accent-amber)]">MAPE: 0%</span>
+          </div>
+        </div>
+
+        <div class="surface-card p-5 space-y-1">
+          <span class="text-xs text-secondary-tone">Primary Friction Pattern</span>
+          <div class="pt-1">
+            <span id="mirrorTopObstacle" class="text-base font-medium block truncate">None Recorded</span>
+            <span id="mirrorTopObstacleEvidence" class="text-[11px] text-muted-tone block truncate mt-0.5">Diagnostic signal</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <!-- Reference Class Multipliers -->
+        <div class="md:col-span-7 surface-card p-6 space-y-4">
+          <div>
+            <h3 class="text-sm font-semibold">Reference-Class Calibration</h3>
+            <p class="text-xs text-secondary-tone mt-0.5">Historical multipliers automatically adjust future estimates in each category.</p>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+              <thead>
+                <tr class="border-b border-hairline text-[11px] font-mono-num text-muted-tone">
+                  <th class="py-2 font-normal">Class</th>
+                  <th class="py-2 font-normal">Tasks</th>
+                  <th class="py-2 font-normal">Planned</th>
+                  <th class="py-2 font-normal">Actual</th>
+                  <th class="py-2 font-normal">Multiplier</th>
+                  <th class="py-2 font-normal">Guidance</th>
+                </tr>
+              </thead>
+              <tbody id="mirrorCategoryTableBody" class="divide-y divide-[var(--border-hairline)]">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Matched Friction Countermeasures -->
+        <div class="md:col-span-5 surface-card p-6 space-y-4">
+          <div>
+            <h3 class="text-sm font-semibold">Environmental Adjustments</h3>
+            <p class="text-xs text-secondary-tone mt-0.5">Matched behavioral countermeasures (Michie et al., BCTTv1).</p>
+          </div>
+          <div id="mirrorObstacleBreakdownList" class="space-y-3">
+          </div>
+        </div>
+      </div>
+
+      <!-- Full Mirror Log -->
+      <div class="surface-card p-6 space-y-4">
+        <h3 class="text-sm font-semibold">Planned vs. Reality Log</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr class="border-b border-hairline text-[11px] font-mono-num text-muted-tone">
+                <th class="py-2 px-2 font-normal">Date</th>
+                <th class="py-2 px-2 font-normal">Task</th>
+                <th class="py-2 px-2 font-normal">Planned → Adjusted → Actual</th>
+                <th class="py-2 px-2 font-normal">Delta</th>
+                <th class="py-2 px-2 font-normal">If-Then?</th>
+                <th class="py-2 px-2 font-normal">Friction Tag</th>
+              </tr>
+            </thead>
+            <tbody id="mirrorFullLogTableBody" class="divide-y divide-[var(--border-hairline)]">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 3: RECALL (FSRS-6 SPACED RETRIEVAL + GOOGLE CALENDAR PING)     -->
+    <!-- =================================================================== -->
+    <section id="view-skills" class="module-view hidden space-y-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 pb-2 border-b border-hairline">
+        <div>
+          <h1 class="text-lg sm:text-xl font-medium tracking-tight">Spaced Retrieval</h1>
+          <p class="text-xs text-secondary-tone">Active recall scheduled right as memory stability reaches 90% retrievability (FSRS-6).</p>
+        </div>
+        <button onclick="window.apexApp.downloadAllSkillsICS()" class="px-3.5 py-1.5 rounded-lg text-xs font-medium surface-subtle hover:border-[var(--border-focus)] transition flex items-center gap-1.5 self-start sm:self-auto">
+          <i class="fa-regular fa-calendar-check text-[var(--accent-sage)]"></i>
+          <span>Export .ICS Schedule</span>
+        </button>
+      </div>
+
+      <!-- Active Recall Cards Grid -->
+      <div id="skillsCardsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      </div>
+
+      <!-- Quiet Add Concept Card + Expandable Forgetting Curve -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <div class="md:col-span-6 surface-card p-6 space-y-4">
+          <h3 class="text-sm font-semibold">Add Retrieval Concept or Reading Note</h3>
+          <form onsubmit="window.apexApp.handleAddSubskill(event)" class="space-y-3 text-xs sm:text-sm">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs text-secondary-tone mb-1">Domain / Book</label>
+                <input id="skillParentInput" type="text" required placeholder="e.g., Distributed Systems" class="w-full input-quiet px-3 py-2 text-xs" />
+              </div>
+              <div>
+                <label class="block text-xs text-secondary-tone mb-1">Specific Concept</label>
+                <input id="skillSubskillInput" type="text" required placeholder="e.g., Raft Leader Safety" class="w-full input-quiet px-3 py-2 text-xs" />
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs text-secondary-tone mb-1">Active Recall Prompt (Question to answer from blank paper)</label>
+              <input id="skillPromptInput" type="text" required placeholder="e.g., Why can a candidate with a stale log never win election?" class="w-full input-quiet px-3 py-2 text-xs" />
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="sm:col-span-2">
+                <label class="block text-xs text-secondary-tone mb-1">Past Misconception / Error Note</label>
+                <input id="skillErrorLogInput" type="text" placeholder="e.g., Confused commitIndex during partition" class="w-full input-quiet px-3 py-2 text-xs" />
+              </div>
+              <div>
+                <label class="block text-xs text-secondary-tone mb-1">Difficulty (1–10)</label>
+                <input id="skillInitialDInput" type="number" min="1" max="10" step="0.5" value="5.0" class="w-full input-quiet px-3 py-2 text-xs font-mono-num" />
+              </div>
+            </div>
+            <button type="submit" class="w-full py-2 px-4 rounded-lg bg-[var(--text-primary)] text-[var(--bg-canvas)] font-medium text-xs hover:opacity-90 transition">
+              Schedule Retrieval Node
+            </button>
+          </form>
+        </div>
+
+        <div class="md:col-span-6 surface-card p-6 flex flex-col justify-between space-y-4">
+          <div>
+            <h3 class="text-sm font-semibold">Retention Curve &amp; 90% Trigger</h3>
+            <p class="text-xs text-secondary-tone mt-0.5">
+              Nodes are pinged via Google Calendar when power-law retrievability crosses the 90.0% line.
+            </p>
+          </div>
+          <div class="p-3 rounded-xl surface-subtle">
+            <svg id="fsrsCurveSvg" viewBox="0 0 600 195" class="w-full h-44 overflow-visible"></svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 4: DECISIONS (PROBABILISTIC FORECASTING & BRIER CALIBRATION)   -->
+    <!-- =================================================================== -->
+    <section id="view-decisions" class="module-view hidden space-y-8">
+      <div class="pb-2 border-b border-hairline">
+        <h1 class="text-lg sm:text-xl font-medium tracking-tight">Decision Journal</h1>
+        <p class="text-xs text-secondary-tone">Record explicit assumptions, pre-mortems, and probability estimates calibrated via Brier scoring.</p>
+      </div>
+
+      <!-- 3 Quiet Calibration Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="surface-card p-5 space-y-1">
+          <span class="text-xs text-secondary-tone">Mean Brier Score</span>
+          <div class="flex items-baseline gap-2 pt-1">
+            <span id="decisionMeanBrier" class="font-mono-num text-2xl font-medium">--</span>
+            <span id="decisionBrierTier" class="text-xs font-mono-num text-[var(--accent-sage)]">Calibrating</span>
+          </div>
+          <p class="text-[11px] text-muted-tone">0.00 Perfect · 0.25 Coin-flip</p>
+        </div>
+
+        <div class="surface-card p-5 space-y-1">
+          <span class="text-xs text-secondary-tone">Skill Edge vs. Chance</span>
+          <div class="flex items-baseline gap-2 pt-1">
+            <span id="decisionSkillScore" class="font-mono-num text-2xl font-medium">--</span>
+            <span id="decisionResolvedCount" class="text-xs font-mono-num text-muted-tone">0/0 resolved</span>
+          </div>
+          <p class="text-[11px] text-muted-tone">Relative to 0.25 random baseline</p>
+        </div>
+
+        <div class="surface-card p-5 space-y-1">
+          <span class="text-xs text-secondary-tone">Calibration Diagnostic</span>
+          <div class="pt-1">
+            <span id="decisionBiasSummary" class="text-sm font-medium block">Well-Calibrated</span>
+            <span class="text-[11px] text-muted-tone block mt-0.5">Forecasts vs. empirical base rate</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Log Forecast Form + Calibration Table -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <div class="md:col-span-7 surface-card p-6 space-y-4">
+          <h3 class="text-sm font-semibold">Log Decision &amp; Forecast</h3>
+          <form onsubmit="window.apexApp.handleAddDecision(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3 text-xs">
+            <div class="sm:col-span-7">
+              <label class="block text-secondary-tone mb-1">Decision &amp; Chosen Path</label>
+              <input id="decTitleInput" type="text" required placeholder="e.g., Migrate analytics pipeline to DuckDB" class="w-full input-quiet px-3 py-2" />
+            </div>
+            <div class="sm:col-span-5">
+              <label class="block text-secondary-tone mb-1">Alternatives Considered</label>
+              <input id="decAlternativesInput" type="text" required placeholder="e.g., Postgres replica or BigQuery" class="w-full input-quiet px-3 py-2" />
+            </div>
+            <div class="sm:col-span-6">
+              <label class="block text-secondary-tone mb-1">Falsifiable Outcome Prediction</label>
+              <input id="decPredictionInput" type="text" required placeholder="e.g., P95 latency < 120ms within 14d" class="w-full input-quiet px-3 py-2" />
+            </div>
+            <div class="sm:col-span-3">
+              <label class="block text-secondary-tone mb-1">Confidence (%)</label>
+              <input id="decProbInput" type="number" min="1" max="99" value="75" required class="w-full input-quiet px-3 py-2 font-mono-num" />
+            </div>
+            <div class="sm:col-span-3">
+              <label class="block text-secondary-tone mb-1">Evidence (1–5)</label>
+              <select id="decConfidenceInput" class="w-full input-quiet px-2.5 py-2">
+                <option value="4">4 · Strong</option>
+                <option value="5">5 · Benchmark</option>
+                <option value="3">3 · Base Rate</option>
+                <option value="2">2 · Speculative</option>
+              </select>
+            </div>
+            <div class="sm:col-span-9">
+              <label class="block text-secondary-tone mb-1">Pre-Mortem (If this fails, why did it happen?)</label>
+              <input id="decPremortemInput" type="text" required placeholder="e.g., Memory spikes under concurrent joins" class="w-full input-quiet px-3 py-2" />
+            </div>
+            <div class="sm:col-span-3 flex items-end">
+              <button type="submit" class="w-full py-2 px-3 rounded-lg bg-[var(--text-primary)] text-[var(--bg-canvas)] font-medium hover:opacity-90 transition">
+                Save Forecast
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="md:col-span-5 surface-card p-6 space-y-4">
+          <h3 class="text-sm font-semibold">Calibration Curve Buckets</h3>
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-hairline text-[10px] font-mono-num text-muted-tone">
+                <th class="py-2 font-normal">Bucket</th>
+                <th class="py-2 font-normal">n</th>
+                <th class="py-2 font-normal">Forecast</th>
+                <th class="py-2 font-normal">Actual</th>
+                <th class="py-2 font-normal">Brier</th>
+              </tr>
+            </thead>
+            <tbody id="decisionCalibrationBucketsBody" class="divide-y divide-[var(--border-hairline)] font-mono-num">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Decisions List -->
+      <div id="decisionsListContainer" class="space-y-4">
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 5: REVIEW (FACTS VS HYPOTHESES + SINGLE NEXT EXPERIMENT)       -->
+    <!-- =================================================================== -->
+    <section id="view-weekly" class="module-view hidden space-y-8">
+      <div class="flex items-end justify-between gap-3 pb-2 border-b border-hairline">
+        <div>
+          <h1 class="text-lg sm:text-xl font-medium tracking-tight">Weekly Review</h1>
+          <p class="text-xs text-secondary-tone">Separates verifiable recorded facts from testable candidate hypotheses.</p>
+        </div>
+        <button onclick="window.apexApp.renderWeeklyReview()" class="px-3 py-1.5 rounded-lg text-xs surface-subtle text-secondary-tone hover:text-[var(--text-primary)] transition">
+          Refresh Synthesis
+        </button>
+      </div>
+
+      <!-- Single Suggested Experiment Card -->
+      <div id="weeklySingleRecommendationCard" class="surface-card p-6 sm:p-7 space-y-3 border-l-4 border-l-[var(--accent-sage)]">
+      </div>
+
+      <!-- Side-by-Side Facts vs Hypotheses -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="surface-card p-6 space-y-4">
+          <div class="flex items-center justify-between border-b border-hairline pb-3">
+            <h3 class="text-sm font-semibold">Observed Facts</h3>
+            <span class="text-[10px] font-mono-num text-muted-tone uppercase">Direct Telemetry</span>
+          </div>
+          <div id="weeklyFactsList" class="space-y-3 text-xs sm:text-sm">
+          </div>
+        </div>
+
+        <div class="surface-card p-6 space-y-4">
+          <div class="flex items-center justify-between border-b border-hairline pb-3">
+            <h3 class="text-sm font-semibold">Candidate Hypotheses</h3>
+            <span class="text-[10px] font-mono-num text-muted-tone uppercase">To Test Next Week</span>
+          </div>
+          <div id="weeklyHypothesesList" class="space-y-3 text-xs sm:text-sm">
+          </div>
+        </div>
+      </div>
+
+      <!-- Expandable Scientific Foundation Matrix -->
+      <details class="surface-card p-6">
+        <summary class="cursor-pointer flex items-center justify-between text-xs font-medium text-secondary-tone hover:text-[var(--text-primary)]">
+          <span>Inspect Empirical Evidence Matrix (7 Active Behavioral Mechanisms)</span>
+          <i class="fa-solid fa-chevron-down text-[10px]"></i>
+        </summary>
+        <div class="mt-4 pt-4 border-t border-hairline overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-hairline text-[10px] font-mono-num uppercase text-muted-tone">
+                <th class="py-2.5 px-3 font-normal">Mechanic</th>
+                <th class="py-2.5 px-3 font-normal">Source</th>
+                <th class="py-2.5 px-3 font-normal">Effect</th>
+                <th class="py-2.5 px-3 font-normal">Live Telemetry</th>
+              </tr>
+            </thead>
+            <tbody id="empiricalEvidenceMatrixBody" class="divide-y divide-[var(--border-hairline)]">
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </section>
+
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- SYSTEM & DATA DRAWER (Tucks plumbing, Cloud, & 16 Unit Tests away)    -->
+  <!-- ===================================================================== -->
+  <div id="systemDrawerModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex justify-end">
+    <div class="w-full max-w-xl bg-[var(--bg-surface)] border-l border-hairline h-full overflow-y-auto p-6 sm:p-8 space-y-8 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-hairline pb-4">
+        <div>
+          <span class="text-[10px] font-mono-num uppercase tracking-widest text-muted-tone">Architecture &amp; Sovereignty</span>
+          <h2 class="text-base font-semibold">System, Cloud Sync &amp; Verification</h2>
+        </div>
+        <button onclick="window.apexApp.closeSystemDrawer()" class="p-2 rounded-lg text-secondary-tone hover:text-[var(--text-primary)]">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- 1. Sample Data & Clean Slate Control -->
+      <div class="space-y-2">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-secondary-tone">1. Dataset Mode</h3>
+          <button id="btnSampleToggle" onclick="window.apexApp.handleSampleDataAction()" class="px-3 py-1.5 rounded-lg text-xs font-medium surface-subtle hover:border-[var(--border-focus)] transition">
+            <span id="btnSampleToggleText">Clear Sample Data</span>
+          </button>
+        </div>
+        <p class="text-xs text-muted-tone">
+          Switch between the labeled demonstration dataset and your personal clean-slate workspace at any time.
+        </p>
+      </div>
+
+      <!-- 2. Portable Backups (JSON & CSV) -->
+      <div class="space-y-3 pt-4 border-t border-hairline">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-secondary-tone">2. Portable Backups (JSON &amp; CSV)</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <button onclick="window.apexApp.exportFullJSON()" class="p-2.5 rounded-lg surface-subtle hover:border-[var(--border-focus)] text-xs font-medium flex flex-col items-center gap-1 transition">
+            <i class="fa-solid fa-file-code text-[var(--accent-sage)]"></i>
+            <span>Full JSON</span>
+          </button>
+          <button onclick="window.apexApp.exportCSV('tasks')" class="p-2.5 rounded-lg surface-subtle hover:border-[var(--border-focus)] text-xs font-medium flex flex-col items-center gap-1 transition">
+            <i class="fa-solid fa-file-csv text-secondary-tone"></i>
+            <span>Tasks CSV</span>
+          </button>
+          <button onclick="window.apexApp.exportCSV('skills')" class="p-2.5 rounded-lg surface-subtle hover:border-[var(--border-focus)] text-xs font-medium flex flex-col items-center gap-1 transition">
+            <i class="fa-solid fa-file-csv text-secondary-tone"></i>
+            <span>Skills CSV</span>
+          </button>
+          <button onclick="window.apexApp.exportCSV('decisions')" class="p-2.5 rounded-lg surface-subtle hover:border-[var(--border-focus)] text-xs font-medium flex flex-col items-center gap-1 transition">
+            <i class="fa-solid fa-file-csv text-secondary-tone"></i>
+            <span>Decisions CSV</span>
+          </button>
+        </div>
+        <div class="pt-1">
+          <label class="block text-xs text-muted-tone mb-1">Restore Workspace from JSON File</label>
+          <input type="file" accept=".json" onchange="window.apexApp.importFullJSON(event)" class="block w-full text-xs text-secondary-tone file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-[var(--bg-subtle)] file:text-[var(--text-primary)] cursor-pointer" />
+        </div>
+      </div>
+
+      <!-- 3. Google Cloud Firestore Sync -->
+      <div class="space-y-3 pt-4 border-t border-hairline">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-secondary-tone">3. Google Cloud / Firebase Sync</h3>
+          <span id="modalCloudStatusBadge" class="text-[11px] font-mono-num text-[var(--accent-sage)]">Local Ready</span>
+        </div>
+        <p class="text-xs text-muted-tone leading-relaxed">
+          User data is strictly separated from source code. Paste your client Firebase config JSON at runtime to sync across devices via Google Cloud Firestore.
+        </p>
+        <textarea id="customFirebaseConfigInput" rows="3" placeholder='{"apiKey":"...","authDomain":"...","projectId":"..."}' class="w-full input-quiet p-2.5 text-xs font-mono-num"></textarea>
+        <div class="flex items-center justify-between">
+          <span id="firebaseUserIdDisplay" class="text-[11px] font-mono-num text-muted-tone truncate">Session Mode</span>
+          <button onclick="window.apexApp.connectCustomFirebase()" class="px-3.5 py-1.5 rounded-lg bg-[var(--text-primary)] text-[var(--bg-canvas)] text-xs font-medium hover:opacity-90 transition">
+            Connect Cloud
+          </button>
+        </div>
+      </div>
+
+      <!-- 4. Deterministic 16-Unit-Test Suite -->
+      <div class="space-y-3 pt-4 border-t border-hairline">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-secondary-tone">4. Deterministic Math Verification (16 Tests)</h3>
+          <button onclick="window.apexApp.runUnitTests(false)" class="px-3 py-1 rounded-lg text-xs font-medium bg-[var(--accent-sage-soft)] text-[var(--accent-sage)]">
+            Run 16 Tests
+          </button>
+        </div>
+        <div id="unitTestSummaryBar" class="text-xs font-mono-num p-2.5 rounded-lg surface-subtle"></div>
+        <div id="unitTestResultsGrid" class="space-y-1.5 max-h-60 overflow-y-auto pr-1 text-xs font-mono-num"></div>
+      </div>
+
+      <!-- 5. GitHub Pages Runbook & Live JSON Schema -->
+      <details class="pt-4 border-t border-hairline text-xs">
+        <summary class="cursor-pointer font-semibold uppercase tracking-wider text-secondary-tone flex items-center justify-between">
+          <span>5. GitHub Pages Deployment &amp; State Inspector</span>
+          <i class="fa-solid fa-chevron-down text-[10px]"></i>
+        </summary>
+        <div class="mt-3 space-y-3 text-secondary-tone">
+          <div class="p-3 rounded-lg surface-subtle font-mono-num text-[11px] space-y-1 overflow-x-auto">
+            <div>git init &amp;&amp; git checkout -b main</div>
+            <div>git add index.html &amp;&amp; git commit -m "Deploy APEX v3.0"</div>
+            <div>gh repo create apex-pwa --public --source=. --push</div>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-muted-tone">Live State Schema</span>
+            <button onclick="window.apexApp.copyStateJsonToClipboard()" class="text-xs underline">Copy JSON</button>
+          </div>
+          <pre id="schemaInspectorPre" class="max-h-48 overflow-auto p-3 rounded-lg surface-subtle text-[10px] font-mono-num"></pre>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- NIGHTLY 2-MINUTE CHECK-IN MODAL                                       -->
+  <!-- ===================================================================== -->
+  <div id="nightlyReviewModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="surface-card max-w-xl w-full p-6 sm:p-7 space-y-5 shadow-2xl max-h-[88vh] flex flex-col">
+      <div class="flex items-center justify-between border-b border-hairline pb-3">
+        <div>
+          <span class="text-[10px] font-mono-num uppercase tracking-widest text-muted-tone">Under 2 Minutes · BCTTv1 Self-Monitoring</span>
+          <h3 class="text-base font-semibold">Evening Reality Check-In</h3>
+        </div>
+        <button onclick="window.apexApp.closeNightlyReviewModal()" class="text-secondary-tone hover:text-[var(--text-primary)] p-1">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <p class="text-xs text-secondary-tone">
+        Log actual minutes and tag any friction objectively. Every data point sharpens tomorrow's Reference-Class time adjustments.
+      </p>
+      <div id="nightlyReviewTasksList" class="flex-1 overflow-y-auto space-y-2.5 pr-1">
+      </div>
+      <div class="pt-3 border-t border-hairline flex items-center justify-between">
+        <span class="text-xs text-muted-tone">Auto-saved</span>
+        <button onclick="window.apexApp.finishNightlyReview()" class="px-4 py-2 rounded-lg bg-[var(--accent-sage)] text-white dark:text-slate-950 font-medium text-xs transition">
+          Complete &amp; View Mirror
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEW LONG-TERM GOAL MODAL -->
+  <div id="newGoalModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="surface-card max-w-md w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-hairline pb-3">
+        <h3 class="text-sm font-semibold">Define North Star Goal</h3>
+        <button onclick="window.apexApp.closeGoalModal()" class="text-secondary-tone hover:text-[var(--text-primary)]"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form onsubmit="window.apexApp.handleAddGoal(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block text-secondary-tone mb-1">Objective Title</label>
+          <input id="goalTitleInput" type="text" required placeholder="e.g., Master Distributed Consensus & Ship v3" class="w-full input-quiet px-3 py-2" />
+        </div>
+        <div>
+          <label class="block text-secondary-tone mb-1">Target Horizon</label>
+          <input id="goalHorizonInput" type="text" required placeholder="e.g., Q4 2026" class="w-full input-quiet px-3 py-2" />
+        </div>
+        <div>
+          <label class="block text-secondary-tone mb-1">Verifiable Success Metric</label>
+          <input id="goalMetricInput" type="text" required placeholder="e.g., 90% FSRS retention + <0.12 Brier score" class="w-full input-quiet px-3 py-2" />
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="window.apexApp.closeGoalModal()" class="px-3 py-1.5 rounded-lg surface-subtle text-xs">Cancel</button>
+          <button type="submit" class="px-4 py-1.5 rounded-lg bg-[var(--text-primary)] text-[var(--bg-canvas)] font-medium text-xs">Save Goal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- KEYBOARD SHORTCUTS MODAL -->
+  <div id="shortcutsModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="surface-card max-w-sm w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-hairline pb-2.5">
+        <h3 class="text-sm font-semibold">Keyboard Navigation</h3>
+        <button onclick="window.apexApp.closeShortcutsModal()" class="text-secondary-tone hover:text-[var(--text-primary)]"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="space-y-2 text-xs text-secondary-tone">
+        <div class="flex justify-between py-1 border-b border-hairline"><span>Views 1–5</span><span><kbd>1</kbd> – <kbd>5</kbd></span></div>
+        <div class="flex justify-between py-1 border-b border-hairline"><span>New Task Input</span><kbd>N</kbd></div>
+        <div class="flex justify-between py-1 border-b border-hairline"><span>Toggle Focus Timer</span><kbd>F</kbd></div>
+        <div class="flex justify-between py-1 border-b border-hairline"><span>Evening Check-In</span><kbd>R</kbd></div>
+        <div class="flex justify-between py-1"><span>System &amp; Unit Tests</span><kbd>S</kbd></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIET TOAST CONTAINER -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    /**
+     * DETERMINISTIC SCIENTIFIC ENGINE (100% Pure, Testable, Zero-AI-API)
+     */
+    export const ApexScienceEngine = {
+      computeWoopCompleteness(missionObj) {
+        if (!missionObj) return { filledCount: 0, total: 4, pct: 0, effectActive: false };
+        const fields = [
+          missionObj.missionText,
+          missionObj.woopOutcome,
+          missionObj.ifObstacle,
+          missionObj.thenResponse
+        ];
+        const filledCount = fields.filter(f => typeof f === 'string' && f.trim().length > 0).length;
+        return {
+          filledCount,
+          total: 4,
+          pct: Math.round((filledCount / 4) * 100),
+          effectActive: filledCount === 4
+        };
+      },
+
+      computeLallyAutomaticity(effectiveDays, missedDays = 0) {
+        const d = Math.max(0, Number(effectiveDays) || 0);
+        const m = Math.max(0, Number(missedDays) || 0);
+        const netEffective = Math.max(0, d - m * 0.35);
+        const k = 0.04538; // 95.0% asymptotic plateau at μ = 66 days
+        const rawAuto = 100 * (1 - Math.exp(-k * netEffective));
+        return Number(Math.min(99.5, Math.max(0, rawAuto)).toFixed(1));
+      },
+
+      computeEstimationRatio(plannedMinutes, actualMinutes) {
+        const p = Number(plannedMinutes);
+        const a = Number(actualMinutes);
+        if (!p || p <= 0 || !a || a <= 0) return null;
+        return Number((a / p).toFixed(2));
+      },
+
+      computeMAPE(tasks) {
+        const valid = (tasks || []).filter(t => Number(t.plannedMinutes) > 0 && Number(t.actualMinutes) > 0);
+        if (valid.length === 0) return 0;
+        const sumPctError = valid.reduce((acc, t) => {
+          return acc + Math.abs(t.actualMinutes - t.plannedMinutes) / t.plannedMinutes;
+        }, 0);
+        return Number(((sumPctError / valid.length) * 100).toFixed(1));
+      },
+
+      computeReferenceClassForecast(tasks, category, rawPlannedMinutes) {
+        const allValid = (tasks || []).filter(t => Number(t.plannedMinutes) > 0 && Number(t.actualMinutes) > 0);
+        const catValid = allValid.filter(t => t.category === category);
+        const pool = catValid.length >= 1 ? catValid : allValid;
+
+        if (pool.length === 0) {
+          return {
+            multiplier: 1.0,
+            adjustedMinutes: Math.round(Number(rawPlannedMinutes) || 30),
+            sampleSize: 0,
+            usedCategory: category
+          };
+        }
+
+        const totalPlanned = pool.reduce((s, t) => s + Number(t.plannedMinutes), 0);
+        const totalActual = pool.reduce((s, t) => s + Number(t.actualMinutes), 0);
+        const multiplier = Number((totalActual / totalPlanned).toFixed(2));
+        const raw = Number(rawPlannedMinutes) || 30;
+        const adjustedMinutes = Math.max(5, Math.round((raw * multiplier) / 5) * 5);
+
+        return {
+          multiplier,
+          adjustedMinutes,
+          sampleSize: pool.length,
+          usedCategory: catValid.length >= 1 ? category : 'All Tasks'
+        };
+      },
+
+      computeFSRSRetrievability(elapsedDays, stabilityDays) {
+        const t = Math.max(0, Number(elapsedDays) || 0);
+        const S = Math.max(0.2, Number(stabilityDays) || 1);
+        const w = 0.5;
+        const factor = 19 / 81; // R(S, S) === 90.0%
+        const r = Math.pow(1 + factor * (t / S), -w);
+        return Number((r * 100).toFixed(1));
+      },
+
+      computeFSRSNextState(currentD, currentS, elapsedDays, reps, ratingG) {
+        const G = Math.max(1, Math.min(4, Math.round(Number(ratingG) || 3)));
+        const D = Math.max(1, Math.min(10, Number(currentD) || 5.0));
+        const S = Math.max(0.5, Number(currentS) || 1.0);
+        const R = this.computeFSRSRetrievability(elapsedDays, S) / 100;
+
+        const deltaD = -0.75 * (G - 3);
+        const rawD = D + deltaD;
+        const nextD = Number(Math.max(1.0, Math.min(10.0, 0.85 * rawD + 0.15 * 5.0)).toFixed(2));
+
+        let nextS = S;
+        let nextReps = Number(reps) || 0;
+
+        if (G === 1) {
+          nextS = Math.max(0.8, Number((S * 0.28).toFixed(1)));
+          nextReps = 0;
+        } else {
+          const difficultyFactor = (11 - nextD) / 5.0;
+          const retrievabilityBoost = Math.exp(0.95 * (1 - R)) - 1 + 0.85;
+          const gradeMultiplier = G === 2 ? 0.65 : G === 3 ? 1.35 : 2.15;
+          const growth = 1 + difficultyFactor * retrievabilityBoost * gradeMultiplier;
+          nextS = Number(Math.max(S + 0.5, Math.min(365, S * growth)).toFixed(1));
+          nextReps += 1;
+        }
+
+        const nextIntervalDays = Math.max(1, Math.round(nextS));
+        const stabilityComponent = Math.min(55, Math.log2(nextS + 1) * 12);
+        const ratingComponent = (G / 4) * 45;
+        const demonstratedMastery = G === 1
+          ? Math.min(35, Math.round(stabilityComponent * 0.6))
+          : Math.min(100, Math.round(stabilityComponent + ratingComponent));
+
+        return {
+          nextD,
+          nextS,
+          nextIntervalDays,
+          repetitions: nextReps,
+          demonstratedMastery
+        };
+      },
+
+      computeBrierScore(probabilityPercent, outcomeBinary) {
+        const p = Math.max(0, Math.min(100, Number(probabilityPercent))) / 100;
+        const o = Number(outcomeBinary) === 1 ? 1 : 0;
+        return Number(Math.pow(p - o, 2).toFixed(4));
+      },
+
+      computeAggregateBrierMetrics(decisions) {
+        const resolved = (decisions || []).filter(d => d.status === 'resolved' && (d.outcome === 0 || d.outcome === 1));
+        if (resolved.length === 0) {
+          return {
+            meanBrier: null,
+            skillScorePct: null,
+            count: 0,
+            tier: 'Awaiting Data',
+            biasText: 'Await Resolution',
+            buckets: []
+          };
+        }
+        const scores = resolved.map(d => this.computeBrierScore(d.probability, d.outcome));
+        const meanBrier = Number((scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(3));
+        const skillScorePct = Number(((1 - meanBrier / 0.25) * 100).toFixed(1));
+
+        const meanProb = resolved.reduce((a, d) => a + Number(d.probability), 0) / resolved.length;
+        const actualRate = (resolved.reduce((a, d) => a + Number(d.outcome), 0) / resolved.length) * 100;
+        const diff = meanProb - actualRate;
+
+        let biasText = 'Well-Calibrated';
+        if (diff > 12) biasText = `Overconfident (+${diff.toFixed(0)}%)`;
+        if (diff < -12) biasText = `Underconfident (${diff.toFixed(0)}%)`;
+
+        let tier = 'Calibrated';
+        if (meanBrier <= 0.12) tier = 'Superforecaster (<0.12)';
+        else if (meanBrier <= 0.20) tier = 'Good Calibration';
+        else if (meanBrier <= 0.25) tier = 'Baseline (~0.25)';
+        else tier = 'Recalibrate (>0.25)';
+
+        const bucketDefs = [
+          { label: '0–49%', min: 0, max: 49 },
+          { label: '50–69%', min: 50, max: 69 },
+          { label: '70–84%', min: 70, max: 84 },
+          { label: '85–100%', min: 85, max: 100 }
+        ];
+        const buckets = bucketDefs.map(b => {
+          const items = resolved.filter(d => d.probability >= b.min && d.probability <= b.max);
+          if (items.length === 0) {
+            return { label: b.label, count: 0, meanProb: '--', actualHit: '--', meanBrier: '--' };
+          }
+          const mp = Math.round(items.reduce((s, x) => s + Number(x.probability), 0) / items.length) + '%';
+          const ah = Math.round((items.reduce((s, x) => s + Number(x.outcome), 0) / items.length) * 100) + '%';
+          const mb = (items.reduce((s, x) => s + this.computeBrierScore(x.probability, x.outcome), 0) / items.length).toFixed(3);
+          return { label: b.label, count: items.length, meanProb: mp, actualHit: ah, meanBrier: mb };
+        });
+
+        return { meanBrier, skillScorePct, count: resolved.length, tier, biasText, buckets };
+      },
+
+      synthesizeWeeklyReview(state) {
+        const tasks = state.tasks || [];
+        const skills = state.skills || [];
+        const decisions = state.decisions || [];
+        const habit = state.habit || { effectiveDays: 28, missedDays: 1, title: 'Daily Deep Execution Block' };
+
+        const completedTasks = tasks.filter(t => t.completed);
+        const tasksWithActual = tasks.filter(t => Number(t.actualMinutes) > 0 && Number(t.plannedMinutes) > 0);
+        const totalPlanned = tasksWithActual.reduce((s, t) => s + Number(t.plannedMinutes), 0);
+        const totalActual = tasksWithActual.reduce((s, t) => s + Number(t.actualMinutes), 0);
+        const overallRatio = totalPlanned > 0 ? Number((totalActual / totalPlanned).toFixed(2)) : 1.0;
+
+        const obstacleCounts = {};
+        const obstacleTasks = {};
+        tasks.forEach(t => {
+          if (t.obstacle && t.obstacle !== 'None') {
+            obstacleCounts[t.obstacle] = (obstacleCounts[t.obstacle] || 0) + 1;
+            if (!obstacleTasks[t.obstacle]) obstacleTasks[t.obstacle] = [];
+            obstacleTasks[t.obstacle].push(t.title);
+          }
+        });
+        const sortedObstacles = Object.entries(obstacleCounts).sort((a, b) => b[1] - a[1]);
+        const topObstacle = sortedObstacles.length > 0 ? sortedObstacles[0] : null;
+
+        const withIfThen = tasks.filter(t => t.ifThenPlan && t.ifThenPlan.trim().length > 0);
+        const withoutIfThen = tasks.filter(t => !t.ifThenPlan || t.ifThenPlan.trim().length === 0);
+        const rateWithIfThen = withIfThen.length > 0
+          ? Math.round((withIfThen.filter(t => t.completed).length / withIfThen.length) * 100)
+          : null;
+        const rateWithoutIfThen = withoutIfThen.length > 0
+          ? Math.round((withoutIfThen.filter(t => t.completed).length / withoutIfThen.length) * 100)
+          : null;
+
+        const brierSummary = this.computeAggregateBrierMetrics(decisions);
+        const habitAuto = this.computeLallyAutomaticity(habit.effectiveDays, habit.missedDays);
+        const woopStatus = this.computeWoopCompleteness(state.dailyMission);
+
+        const facts = [
+          {
+            id: 'fact-completion',
+            title: `${completedTasks.length} of ${tasks.length} tasks completed (${tasks.length ? Math.round((completedTasks.length / tasks.length) * 100) : 0}%); Daily Intention ${woopStatus.filledCount}/4 complete`,
+            evidence: `Verified on: ${completedTasks.map(t => `"${t.title}"`).join(', ') || 'None logged yet'}.`
+          },
+          {
+            id: 'fact-duration',
+            title: `${totalPlanned}m planned vs. ${totalActual}m actual across ${tasksWithActual.length} timed tasks (${overallRatio}x multiplier, MAPE ${this.computeMAPE(tasks)}%)`,
+            evidence: `Timed tasks: ${tasksWithActual.map(t => `${t.title} (${t.plannedMinutes}m→${t.actualMinutes}m)`).join('; ') || 'No timed tasks'}.`
+          },
+          {
+            id: 'fact-habit-lally',
+            title: `Keystone habit at Day ${habit.effectiveDays}/66 (${habitAuto}% automaticity, ${habit.missedDays} miss absorbed without reset)`,
+            evidence: `"${habit.title}" along Lally et al. (2010) 66-day curve.`
+          },
+          {
+            id: 'fact-fsrs-brier',
+            title: `${skills.length} FSRS-6 recall nodes active; ${brierSummary.count} resolved forecasts (Mean Brier: ${brierSummary.meanBrier ?? 'N/A'})`,
+            evidence: `Mean stability S = ${skills.length ? (skills.reduce((s, k) => s + Number(k.stabilityDays || 1), 0) / skills.length).toFixed(1) : 0}d.`
+          }
+        ];
+
+        const hypotheses = [];
+        if (rateWithIfThen !== null && rateWithoutIfThen !== null) {
+          hypotheses.push({
+            id: 'hyp-ifthen',
+            statement: `If-Then Shielding Effect: Tasks with an If-Then plan completed at ${rateWithIfThen}% vs. ${rateWithoutIfThen}% without one.`,
+            testablePrediction: `Next week test: Attach a 1-line If-Then plan to every Engineering task to verify if completion exceeds ${Math.max(rateWithIfThen, 80)}%.`
+          });
+        }
+        if (overallRatio > 1.15) {
+          hypotheses.push({
+            id: 'hyp-planning',
+            statement: `Optimism Scaling Bias: Timed tasks required ${overallRatio}x of planned time.`,
+            testablePrediction: `Next week test: Click "Apply" on the inline ${overallRatio}x reality estimate before starting timers to reduce MAPE below 15%.`
+          });
+        } else {
+          hypotheses.push({
+            id: 'hyp-calibrated',
+            statement: `Steady Estimation Calibration: Your ${overallRatio}x ratio shows low planning error.`,
+            testablePrediction: `Next week test: Keep task blocks ≤45m to preserve estimation precision.`
+          });
+        }
+
+        const recommendation = {
+          headline: 'Apply Reality-Adjusted Time Multipliers & Pre-Commit One If-Then Shield',
+          scientificBasis: 'Oettingen (WOOP) · Gollwitzer & Sheeran (d ≈ 0.65) · Kahneman Reference-Class',
+          actionStep: 'Before starting your first deep block each morning, accept the inline reality-adjusted duration estimate and write a 1-line If-Then plan for your primary obstacle.',
+          supportingObservations: [
+            `Duration ratio is ${overallRatio}x across ${tasksWithActual.length} timed tasks (${totalPlanned}m planned vs ${totalActual}m actual).`,
+            topObstacle
+              ? `Top friction tag "${topObstacle[0]}" occurred ${topObstacle[1]} time(s) on: ${obstacleTasks[topObstacle[0]].join(', ')}.`
+              : `Tasks with If-Then plans completed at ${rateWithIfThen ?? 0}% vs ${rateWithoutIfThen ?? 0}% without.`
+          ]
+        };
+
+        const evidenceMatrix = [
+          {
+            mechanic: 'Implementation intentions (if-then)',
+            source: 'Gollwitzer & Sheeran meta-analyses',
+            effect: 'd ≈ 0.65',
+            liveStatus: `${withIfThen.length}/${tasks.length} tasks shielded (${rateWithIfThen ?? 0}% completion)`
+          },
+          {
+            mechanic: 'Mental contrasting (WOOP)',
+            source: 'Oettingen RCTs',
+            effect: 'Moderate–High',
+            liveStatus: `Daily Intention: ${woopStatus.filledCount}/4 stages (${woopStatus.pct}%)`
+          },
+          {
+            mechanic: 'Self-monitoring',
+            source: 'Michie et al., BCTTv1 taxonomy',
+            effect: 'Top technique',
+            liveStatus: `${tasksWithActual.length} tasks with Planned vs Actual telemetry`
+          },
+          {
+            mechanic: 'Spaced retrieval (FSRS-6)',
+            source: 'Open spaced-repetition scheduler (DSR)',
+            effect: 'State of the art',
+            liveStatus: `${skills.length} nodes tracked at 90.0% target threshold`
+          },
+          {
+            mechanic: 'Brier scoring for forecasts',
+            source: 'Proper scoring rule (Brier 1950)',
+            effect: 'Calibration ↑',
+            liveStatus: `Mean Brier: ${brierSummary.meanBrier ?? '--'} (Edge: ${brierSummary.skillScorePct !== null ? brierSummary.skillScorePct + '%' : '--'})`
+          },
+          {
+            mechanic: 'Habit automaticity timeline',
+            source: 'Lally et al. 2010',
+            effect: 'μ = 66 days',
+            liveStatus: `Day ${habit.effectiveDays}/66 → ${habitAuto}% automaticity`
+          },
+          {
+            mechanic: 'Reference-class forecasting',
+            source: 'Kahneman & Tversky 1979',
+            effect: 'Optimism bias ↓',
+            liveStatus: `Multiplier: ${overallRatio}x (MAPE: ${this.computeMAPE(tasks)}%)`
+          }
+        ];
+
+        return { facts, hypotheses, recommendation, overallRatio, topObstacle, evidenceMatrix };
+      }
+    };
+
+    function getSampleDataset() {
+      const todayIso = new Date().toISOString().slice(0, 10);
+      return {
+        isSampleDataLoaded: true,
+        activeGoalId: 'goal-sample-1',
+        dailyMission: {
+          date: todayIso,
+          missionText: 'Ship deterministic FSRS-6 scheduler & Quiet Intelligence v3.0 architecture',
+          woopOutcome: 'All 16 unit tests pass in <1ms and daily logging takes under 90 seconds',
+          ifObstacle: 'a notification or urge to tweak minor styles interrupts deep implementation',
+          thenResponse: 'mute notifications for 45 minutes and complete the next pure math test assertion first',
+          isSample: true
+        },
+        habit: {
+          title: 'First 90-Minute Uninterrupted Deep Work Block Before Messages',
+          effectiveDays: 28,
+          missedDays: 1,
+          isSample: true
+        },
+        goals: [
+          {
+            id: 'goal-sample-1',
+            title: 'Architect Resilient Distributed Systems & Quantitative Judgment',
+            horizon: 'Q4 2026',
+            metric: '90% FSRS-6 retention + <0.12 Brier Score',
+            isSample: true
+          },
+          {
+            id: 'goal-sample-2',
+            title: 'Publish Open-Source Local-First Performance Engine',
+            horizon: 'Q1 2027',
+            metric: 'Zero-dependency PWA on GitHub Pages',
+            isSample: true
+          }
+        ],
+        tasks: [
+          {
+            id: 'task-sample-1',
+            title: 'Implement FSRS-6 power-law retrievability R(t,S) & DSR transition math',
+            category: 'Engineering',
+            plannedMinutes: 45,
+            actualMinutes: 60,
+            completed: true,
+            ifThenPlan: 'If exponent math stalls >10m → verify R(S,S) === 90.0% identity first',
+            obstacle: 'Scope Underestimated',
+            date: todayIso,
+            isSample: true
+          },
+          {
+            id: 'task-sample-2',
+            title: 'Synthesize Raft consensus paper section 5.4 safety proof notes',
+            category: 'Research / Reading',
+            plannedMinutes: 30,
+            actualMinutes: 40,
+            completed: true,
+            ifThenPlan: 'If passive reading sets in → close PDF and write safety invariant from memory',
+            obstacle: 'None',
+            date: todayIso,
+            isSample: true
+          },
+          {
+            id: 'task-sample-3',
+            title: 'Audit production query tail-latency regressions on analytics node',
+            category: 'Engineering',
+            plannedMinutes: 40,
+            actualMinutes: 55,
+            completed: false,
+            ifThenPlan: 'If logs are noisy → isolate P99 trace in local benchmark first',
+            obstacle: 'External Interruption',
+            date: todayIso,
+            isSample: true
+          },
+          {
+            id: 'task-sample-4',
+            title: 'Refine Quiet Intelligence perceptual color tokens & progressive disclosure',
+            category: 'Deep Work',
+            plannedMinutes: 35,
+            actualMinutes: 35,
+            completed: true,
+            ifThenPlan: 'If contrast feels harsh → anchor Carbon Studio on #0C0D0E',
+            obstacle: 'None',
+            date: todayIso,
+            isSample: true
+          }
+        ],
+        skills: [
+          {
+            id: 'skill-sample-1',
+            parentSkill: 'Distributed Systems',
+            subskill: 'Raft Leader Completeness & Log Replication Safety',
+            prompt: 'Without notes, state the exact condition under which a follower rejects AppendEntries and why a leader never overwrites its log.',
+            errorLog: 'Previously forgot that entries from prior terms are only committed indirectly by committing an entry from the current term.',
+            difficultyD: 5.4,
+            stabilityDays: 6.0,
+            intervalDays: 6,
+            repetitions: 3,
+            demonstratedMastery: 84,
+            elapsedDaysSinceReview: 6.2,
+            lastRating: 3,
+            isSample: true
+          },
+          {
+            id: 'skill-sample-2',
+            parentSkill: 'Epistemic Calibration',
+            subskill: 'Bayes Base-Rate Neglect & Brier Skill Score',
+            prompt: 'Calculate posterior probability given 1% base rate, 90% sensitivity, and 9% false-positive rate on blank paper.',
+            errorLog: 'Anchored on 90% sensitivity instead of weighting the 9% false-positive rate across the 99% negative population.',
+            difficultyD: 4.1,
+            stabilityDays: 14.5,
+            intervalDays: 15,
+            repetitions: 4,
+            demonstratedMastery: 92,
+            elapsedDaysSinceReview: 4.0,
+            lastRating: 4,
+            isSample: true
+          },
+          {
+            id: 'skill-sample-3',
+            parentSkill: 'Rust Systems',
+            subskill: 'Variance & Non-Lexical Lifetimes over &mut T',
+            prompt: 'Explain why &mut T is invariant over T and write a 6-line snippet showing how covariance would violate memory safety.',
+            errorLog: 'Mixed up covariance of &T with invariance of &mut T when nesting lifetime parameters.',
+            difficultyD: 6.8,
+            stabilityDays: 2.5,
+            intervalDays: 3,
+            repetitions: 2,
+            demonstratedMastery: 64,
+            elapsedDaysSinceReview: 2.8,
+            lastRating: 2,
+            isSample: true
+          }
+        ],
+        decisions: [
+          {
+            id: 'dec-sample-1',
+            title: 'Upgrade spaced repetition engine from SM-2 to FSRS-6 DSR power-law scheduler',
+            alternatives: 'Keep legacy SM-2 exponential heuristic vs. implement FSRS-6 DSR model',
+            prediction: 'FSRS-6 scheduler will pass all deterministic 90%-retrievability unit tests with <1ms overhead',
+            probability: 92,
+            confidence: 5,
+            premortem: 'Power-law factor calibration mismatch at t = S boundary',
+            status: 'resolved',
+            outcome: 1,
+            reviewNotes: 'Confirmed: R(S,S) equals 90.0% and all 4 ratings update D and S deterministically.',
+            date: todayIso,
+            isSample: true
+          },
+          {
+            id: 'dec-sample-2',
+            title: 'Move deep-work block to 4:00 PM after afternoon team standups',
+            alternatives: 'Protect 8:30 AM first-thing block vs. 4:00 PM afternoon block',
+            prediction: 'Will complete >=4 uninterrupted 45-minute deep work sessions in 5 days',
+            probability: 65,
+            confidence: 3,
+            premortem: 'Late-afternoon cognitive fatigue and spillover incidents from daytime reviews',
+            status: 'resolved',
+            outcome: 0,
+            reviewNotes: 'Did not occur: Only 2 sessions completed due to afternoon triage. Restored 8:30 AM block.',
+            date: todayIso,
+            isSample: true
+          },
+          {
+            id: 'dec-sample-3',
+            title: 'Connect FSRS-6 90% retrievability dates directly to Google Calendar reminders',
+            alternatives: 'Rely on passive app visits vs. proactive Google Calendar event pings at R = 90%',
+            prediction: 'Spaced retrieval adherence rate will exceed 85% over the next 14 days',
+            probability: 82,
+            confidence: 4,
+            premortem: 'Notification fatigue if multiple subskills fire at the exact same hour',
+            status: 'pending',
+            outcome: null,
+            reviewNotes: '',
+            date: todayIso,
+            isSample: true
+          }
+        ]
+      };
+    }
+
+    function getCleanSlateDataset() {
+      const todayIso = new Date().toISOString().slice(0, 10);
+      return {
+        isSampleDataLoaded: false,
+        activeGoalId: 'goal-user-1',
+        dailyMission: {
+          date: todayIso,
+          missionText: '',
+          woopOutcome: '',
+          ifObstacle: '',
+          thenResponse: '',
+          isSample: false
+        },
+        habit: {
+          title: 'Daily 60m Uninterrupted Deep Work Block',
+          effectiveDays: 1,
+          missedDays: 0,
+          isSample: false
+        },
+        goals: [
+          {
+            id: 'goal-user-1',
+            title: 'Primary Quarter Objective',
+            horizon: 'Current Quarter',
+            metric: 'Define your measurable outcome',
+            isSample: false
+          }
+        ],
+        tasks: [],
+        skills: [],
+        decisions: []
+      };
+    }
+
+    const OBSTACLE_OPTIONS = [
+      'None',
+      'Scope Underestimated',
+      'External Interruption',
+      'Unclear Next Step',
+      'Low Energy / Sleep Deficit',
+      'Context Switching',
+      'Prerequisite Blocked'
+    ];
+
+    const OBSTACLE_BCT_COUNTERMEASURES = {
+      'Scope Underestimated': {
+        bctCode: 'Action Planning & Reference-Class Scaling',
+        advice: 'Slice tasks >45m in half and accept the inline reality-adjusted duration estimate.'
+      },
+      'External Interruption': {
+        bctCode: 'Environment Restructuring (BCTTv1 12.1)',
+        advice: 'Pre-commit an If-Then shield: "If pinged during focus, batch replies at the 45m mark."'
+      },
+      'Unclear Next Step': {
+        bctCode: 'Micro-Step Specification (BCTTv1 1.2)',
+        advice: 'Define a 5-minute physical starting action (e.g., "Write 1 failing assertion").'
+      },
+      'Low Energy / Sleep Deficit': {
+        bctCode: 'Circadian Pacing (BCTTv1 11.2)',
+        advice: 'Move high-difficulty engineering and recall work to your first morning window.'
+      },
+      'Context Switching': {
+        bctCode: 'Single-Task Batching (BCTTv1 7.1)',
+        advice: 'Group shallow operational items into a single end-of-day window.'
+      },
+      'Prerequisite Blocked': {
+        bctCode: 'Dependency Unblocking (BCTTv1 1.2)',
+        advice: 'Log the external blocker during evening check-in and queue an unblocked sub-task.'
+      }
+    };
+
+    class ApexApplication {
+      constructor() {
+        this.state = getSampleDataset();
+        this.currentTab = 'execution';
+        this.woopEditorOpen = false;
+        this.focusTimer = {
+          activeTaskId: 'task-sample-3',
+          running: false,
+          elapsedSeconds: 0,
+          intervalHandle: null
+        };
+        this.firebase = {
+          app: null,
+          db: null,
+          auth: null,
+          user: null,
+          appId: typeof __app_id !== 'undefined' ? __app_id : 'apex-personal-intelligence',
+          connected: false
+        };
+
+        this.init();
+      }
+
+      async init() {
+        this.renderAll();
+        this.bindKeyboardShortcuts();
+        this.runUnitTests(true);
+        await this.initFirebaseIfAvailable();
+      }
+
+      async initFirebaseIfAvailable() {
+        try {
+          if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+            const cfg = JSON.parse(__firebase_config);
+            await this.setupFirebaseInstance(cfg);
+          } else {
+            this.updateCloudStatusUI(false, 'Local Ready');
+          }
+        } catch (err) {
+          this.updateCloudStatusUI(false, 'Local Session');
+        }
+      }
+
+      async setupFirebaseInstance(firebaseConfig) {
+        try {
+          const app = initializeApp(firebaseConfig, 'apex-cloud-' + Date.now());
+          const auth = getAuth(app);
+          const db = getFirestore(app);
+
+          if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+            await signInWithCustomToken(auth, __initial_auth_token);
+          } else {
+            await signInAnonymously(auth);
+          }
+
+          onAuthStateChanged(auth, (user) => {
+            if (user) {
+              this.firebase = { ...this.firebase, app, db, auth, user, connected: true };
+              this.updateCloudStatusUI(true, 'Cloud Synced');
+              const uidEl = document.getElementById('firebaseUserIdDisplay');
+              if (uidEl) uidEl.textContent = `UID: ${user.uid}`;
+              this.subscribeToCloudState();
+            }
+          });
+        } catch (error) {
+          this.showToast(`Cloud notice: ${error.message}`, 'amber');
+          this.updateCloudStatusUI(false, 'Local Mode');
+        }
+      }
+
+      subscribeToCloudState() {
+        if (!this.firebase.user || !this.firebase.db) return;
+        const stateDocRef = doc(
+          this.firebase.db,
+          'artifacts',
+          this.firebase.appId,
+          'users',
+          this.firebase.user.uid,
+          'apexState',
+          'primaryProfile'
+        );
+
+        onSnapshot(
+          stateDocRef,
+          (snapshot) => {
+            if (snapshot.exists()) {
+              const cloudData = snapshot.data();
+              if (cloudData && cloudData.payloadJson) {
+                try {
+                  this.state = JSON.parse(cloudData.payloadJson);
+                  this.renderAll();
+                } catch (e) {
+                  console.error('Cloud parse error:', e);
+                }
+              }
+            } else {
+              this.persistState();
+            }
+          },
+          (err) => console.warn('Snapshot listener warning:', err)
+        );
+      }
+
+      async persistState() {
+        this.renderSchemaInspector();
+        if (!this.firebase.connected || !this.firebase.user || !this.firebase.db) return;
+        try {
+          const stateDocRef = doc(
+            this.firebase.db,
+            'artifacts',
+            this.firebase.appId,
+            'users',
+            this.firebase.user.uid,
+            'apexState',
+            'primaryProfile'
+          );
+          await setDoc(stateDocRef, {
+            updatedAt: new Date().toISOString(),
+            payloadJson: JSON.stringify(this.state)
+          });
+        } catch (err) {
+          console.warn('Cloud sync warning:', err);
+        }
+      }
+
+      async connectCustomFirebase() {
+        const raw = document.getElementById('customFirebaseConfigInput')?.value?.trim();
+        if (!raw) {
+          this.showToast('Paste your Firebase config JSON first.', 'amber');
+          return;
+        }
+        try {
+          const parsed = JSON.parse(raw);
+          if (!parsed.apiKey || !parsed.projectId) {
+            this.showToast('Config requires apiKey and projectId.', 'amber');
+            return;
+          }
+          await this.setupFirebaseInstance(parsed);
+          await this.persistState();
+          this.showToast('Connected to Google Cloud Firestore.', 'emerald');
+        } catch (e) {
+          this.showToast('Invalid JSON format.', 'rose');
+        }
+      }
+
+      updateCloudStatusUI(isCloudConnected, label) {
+        const dot = document.getElementById('cloudStatusDot');
+        const badge = document.getElementById('modalCloudStatusBadge');
+        if (dot) {
+          dot.className = `w-1.5 h-1.5 rounded-full ${isCloudConnected ? 'bg-[var(--accent-sage)]' : 'bg-[var(--accent-amber)]'}`;
+        }
+        if (badge) badge.textContent = label;
+      }
+
+      handleSampleDataAction() {
+        const hasSample = this.state.isSampleDataLoaded ||
+          this.state.tasks.some(t => t.isSample) ||
+          this.state.skills.some(s => s.isSample) ||
+          this.state.decisions.some(d => d.isSample);
+
+        if (hasSample) {
+          this.state = getCleanSlateDataset();
+          this.focusTimer.activeTaskId = null;
+          this.woopEditorOpen = true;
+          this.stopFocusInterval();
+          this.persistState();
+          this.renderAll();
+          this.showToast('Cleared sample data. Workspace is now clean.', 'emerald');
+        } else {
+          this.state = getSampleDataset();
+          this.focusTimer.activeTaskId = 'task-sample-3';
+          this.woopEditorOpen = false;
+          this.persistState();
+          this.renderAll();
+          this.showToast('Restored demonstration dataset.', 'emerald');
+        }
+      }
+
+      computeNextUsefulAction() {
+        const dueSkills = (this.state.skills || []).filter(s => {
+          return ApexScienceEngine.computeFSRSRetrievability(s.elapsedDaysSinceReview, s.stabilityDays) <= 90.0;
+        });
+        if (dueSkills.length > 0) {
+          const topSkill = dueSkills[0];
+          const ret = ApexScienceEngine.computeFSRSRetrievability(topSkill.elapsedDaysSinceReview, topSkill.stabilityDays);
+          return {
+            description: `${ dueSkills.length } recall node due (${topSkill.subskill.slice(0, 24)}… at ${ret}%)`,
+            action: () => this.switchTab('skills')
+          };
+        }
+
+        const woop = ApexScienceEngine.computeWoopCompleteness(this.state.dailyMission);
+        if (!woop.effectActive) {
+          return {
+            description: `Complete Daily Intention (${woop.filledCount}/4 stages)`,
+            action: () => {
+              this.switchTab('execution');
+              this.toggleWoopEditor(true);
+            }
+          };
+        }
+
+        const openTasks = (this.state.tasks || []).filter(t => !t.completed);
+        if (openTasks.length > 0) {
+          return {
+            description: `Focus on "${openTasks[0].title.slice(0, 32)}…"`,
+            action: () => {
+              this.switchTab('execution');
+              this.selectTaskForFocus(openTasks[0].id);
+            }
+          };
+        }
+
+        return {
+          description: 'All tasks complete · Inspect Weekly Review',
+          action: () => this.switchTab('weekly')
+        };
+      }
+
+      triggerNextUsefulAction() {
+        const next = this.computeNextUsefulAction();
+        if (next && typeof next.action === 'function') next.action();
+      }
+
+      renderAll() {
+        this.renderHeaderBadges();
+        this.renderNextUsefulActionBanner();
+        this.renderExecutionModule();
+        this.renderRealityMirrorModule();
+        this.renderSkillsModule();
+        this.renderDecisionsModule();
+        this.renderWeeklyReview();
+        this.renderSchemaInspector();
+        this.updateTabStyles();
+      }
+
+      renderHeaderBadges() {
+        const hasSample = this.state.isSampleDataLoaded ||
+          this.state.tasks.some(t => t.isSample) ||
+          this.state.skills.some(s => s.isSample) ||
+          this.state.decisions.some(d => d.isSample);
+
+        const globalBadge = document.getElementById('sampleDataGlobalBadge');
+        const toggleBtnText = document.getElementById('btnSampleToggleText');
+        if (globalBadge) globalBadge.classList.toggle('hidden', !hasSample);
+        if (toggleBtnText) toggleBtnText.textContent = hasSample ? 'Clear Sample Data' : 'Reload Sample Data';
+
+        const dueCount = (this.state.skills || []).filter(s => {
+          return ApexScienceEngine.computeFSRSRetrievability(s.elapsedDaysSinceReview, s.stabilityDays) <= 90.0;
+        }).length;
+        const dueBadge = document.getElementById('dueSkillsBadge');
+        if (dueBadge) {
+          dueBadge.textContent = String(dueCount);
+          dueBadge.classList.toggle('hidden', dueCount === 0);
+        }
+      }
+
+      renderNextUsefulActionBanner() {
+        const rec = this.computeNextUsefulAction();
+        const descEl = document.getElementById('nextActionDescription');
+        if (descEl) descEl.textContent = rec.description;
+      }
+
+      switchTab(tabId) {
+        this.currentTab = tabId;
+        const views = ['execution', 'mirror', 'skills', 'decisions', 'weekly'];
+        views.forEach(v => {
+          const el = document.getElementById(`view-${v}`);
+          if (el) el.classList.toggle('hidden', v !== tabId);
+        });
+        this.updateTabStyles();
+      }
+
+      updateTabStyles() {
+        const views = ['execution', 'mirror', 'skills', 'decisions', 'weekly'];
+        views.forEach(v => {
+          const btn = document.getElementById(`tab-${v}`);
+          if (!btn) return;
+          if (v === this.currentTab) {
+            btn.className = 'nav-pill px-3.5 py-1 rounded-full text-xs font-medium bg-[var(--bg-surface)] text-[var(--text-primary)] shadow-xs border border-hairline flex items-center gap-1.5 transition';
+          } else {
+            btn.className = 'nav-pill px-3.5 py-1 rounded-full text-xs font-medium text-secondary-tone hover:text-[var(--text-primary)] flex items-center gap-1.5 transition';
+          }
+        });
+      }
+
+      toggleWoopEditor(forceState) {
+        if (typeof forceState === 'boolean') {
+          this.woopEditorOpen = forceState;
+        } else {
+          this.woopEditorOpen = !this.woopEditorOpen;
+        }
+        this.renderExecutionModule();
+      }
+
+      renderExecutionModule() {
+        const selectGoal = document.getElementById('selectActiveGoal');
+        const goalMeta = document.getElementById('activeGoalMeta');
+        if (selectGoal) {
+          selectGoal.innerHTML = (this.state.goals || []).map(g => `
+            <option value="${this.escapeHtml(g.id)}" ${g.id === this.state.activeGoalId ? 'selected' : ''}>
+              ${this.escapeHtml(g.title)}
+            </option>
+          `).join('');
+        }
+        const currentGoal = (this.state.goals || []).find(g => g.id === this.state.activeGoalId) || this.state.goals[0];
+        if (goalMeta && currentGoal) {
+          goalMeta.textContent = `· ${currentGoal.horizon}`;
+        }
+
+        // Progressive Disclosure WOOP Rendering
+        const dm = this.state.dailyMission || {};
+        const mInput = document.getElementById('inputDailyMission');
+        const outInput = document.getElementById('inputWoopOutcome');
+        const ifInput = document.getElementById('inputMissionIf');
+        const thenInput = document.getElementById('inputMissionThen');
+        if (mInput) mInput.value = dm.missionText || '';
+        if (outInput) outInput.value = dm.woopOutcome || '';
+        if (ifInput) ifInput.value = dm.ifObstacle || '';
+        if (thenInput) thenInput.value = dm.thenResponse || '';
+
+        const woop = ApexScienceEngine.computeWoopCompleteness(dm);
+        const woopBadge = document.getElementById('woopScoreBadge');
+        const summaryView = document.getElementById('woopSummaryView');
+        const editorForm = document.getElementById('woopEditorForm');
+        const toggleLabel = document.getElementById('woopToggleLabel');
+
+        if (woopBadge) {
+          woopBadge.textContent = woop.effectActive ? 'Intention Active' : `${woop.filledCount}/4 Set`;
+          woopBadge.className = woop.effectActive
+            ? 'text-[11px] font-mono-num px-2 py-0.5 rounded-full bg-[var(--accent-sage-soft)] text-[var(--accent-sage)]'
+            : 'text-[11px] font-mono-num px-2 py-0.5 rounded-full bg-[var(--accent-amber-soft)] text-[var(--accent-amber)]';
+        }
+
+        const shouldShowEditor = this.woopEditorOpen || woop.filledCount === 0;
+        if (summaryView) summaryView.classList.toggle('hidden', shouldShowEditor);
+        if (editorForm) editorForm.classList.toggle('hidden', !shouldShowEditor);
+        if (toggleLabel) toggleLabel.textContent = shouldShowEditor ? 'Collapse' : 'Edit Intention';
+
+        const wishEl = document.getElementById('woopSummaryWish');
+        const outEl = document.getElementById('woopSummaryOutcome');
+        const ruleEl = document.getElementById('woopSummaryRule');
+        if (wishEl) wishEl.textContent = dm.missionText || 'Define today’s single highest-leverage mission…';
+        if (outEl) outEl.textContent = dm.woopOutcome ? `Outcome: ${dm.woopOutcome}` : '';
+        if (ruleEl) {
+          ruleEl.textContent = (dm.ifObstacle || dm.thenResponse)
+            ? `If ${dm.ifObstacle || 'obstacle'} → Then ${dm.thenResponse || 'respond'}`
+            : '';
+        }
+
+        this.renderLallyHabitSection();
+        this.updateReferenceClassPreview();
+
+        // Ensure active focus task defaults to first uncompleted task if none set
+        if (!this.focusTimer.activeTaskId && this.state.tasks.length > 0) {
+          const firstOpen = this.state.tasks.find(t => !t.completed) || this.state.tasks[0];
+          this.focusTimer.activeTaskId = firstOpen.id;
+        }
+        this.renderFocusTimerCockpit();
+
+        // Render Today's Task Queue
+        const tbody = document.getElementById('executionTasksTableBody');
+        const summaryBadge = document.getElementById('executionStatsSummary');
+        const tasks = this.state.tasks || [];
+        const completedCount = tasks.filter(t => t.completed).length;
+        if (summaryBadge) summaryBadge.textContent = `${completedCount}/${tasks.length} completed`;
+
+        if (!tbody) return;
+        if (tasks.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" class="py-10 text-center text-muted-tone text-xs">
+                Your queue is quiet. Press <kbd>N</kbd> above to add today's first task.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = tasks.map(t => {
+          const isFocused = this.focusTimer.activeTaskId === t.id;
+          return `
+            <tr class="${isFocused ? 'bg-[var(--accent-sage-soft)]/50' : ''} group hover:bg-[var(--bg-subtle)]/60 transition">
+              <td class="py-3.5 pr-3">
+                <div class="flex items-start gap-3">
+                  <input type="checkbox" ${t.completed ? 'checked' : ''} onchange="window.apexApp.toggleTaskCompleted('${t.id}')" class="mt-1 w-4 h-4 rounded border-[var(--border-focus)] accent-[var(--accent-sage)] cursor-pointer" />
+                  <div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <span class="font-medium ${t.completed ? 'line-through text-muted-tone' : 'text-[var(--text-primary)]'}">${this.escapeHtml(t.title)}</span>
+                    </div>
+                    ${t.ifThenPlan ? `<p class="text-[11px] text-secondary-tone mt-0.5 font-mono-num">${this.escapeHtml(t.ifThenPlan)}</p>` : ''}
+                  </div>
+                </div>
+              </td>
+              <td class="py-3.5 px-2 text-xs text-secondary-tone">${this.escapeHtml(t.category)}</td>
+              <td class="py-3.5 px-2 font-mono-num text-xs text-secondary-tone">${t.plannedMinutes}m</td>
+              <td class="py-3.5 px-2">
+                <input type="number" min="0" max="600" step="5" value="${t.actualMinutes || ''}" placeholder="--" onchange="window.apexApp.updateTaskActualMinutes('${t.id}', this.value)" class="w-14 input-quiet px-2 py-1 text-xs font-mono-num" />
+              </td>
+              <td class="py-3.5 px-2">
+                <select onchange="window.apexApp.updateTaskObstacle('${t.id}', this.value)" class="input-quiet px-2 py-1 text-xs text-secondary-tone">
+                  ${OBSTACLE_OPTIONS.map(opt => `<option value="${opt}" ${t.obstacle === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+                </select>
+              </td>
+              <td class="py-3.5 pl-2 text-right whitespace-nowrap">
+                <button onclick="window.apexApp.selectTaskForFocus('${t.id}')" class="px-2.5 py-1 rounded-lg text-xs font-medium ${isFocused ? 'bg-[var(--accent-sage)] text-white dark:text-slate-950' : 'surface-subtle text-secondary-tone hover:text-[var(--text-primary)]'} transition">
+                  ${isFocused ? 'Active' : 'Select'}
+                </button>
+                <button onclick="window.apexApp.deleteTask('${t.id}')" class="ml-1 p-1 text-muted-tone hover:text-[var(--accent-coral)] opacity-0 group-hover:opacity-100 transition" title="Remove">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      renderLallyHabitSection() {
+        if (!this.state.habit) {
+          this.state.habit = { title: 'Daily Deep Execution Block', effectiveDays: 28, missedDays: 1 };
+        }
+        const h = this.state.habit;
+        const autoPct = ApexScienceEngine.computeLallyAutomaticity(h.effectiveDays, h.missedDays);
+
+        const titleIn = document.getElementById('inputHabitTitle');
+        const daysEl = document.getElementById('habitDaysDisplay');
+        const scoreEl = document.getElementById('habitAutomaticityScore');
+        const missEl = document.getElementById('habitMissedDisplay');
+        const barEl = document.getElementById('habitProgressBar');
+
+        if (titleIn) titleIn.value = h.title || '';
+        if (daysEl) daysEl.textContent = `Day ${h.effectiveDays} / 66`;
+        if (scoreEl) scoreEl.textContent = `${autoPct}% automaticity`;
+        if (missEl) missEl.textContent = h.missedDays > 0 ? `· ${h.missedDays} miss absorbed` : '';
+        if (barEl) barEl.style.width = `${Math.min(100, autoPct)}%`;
+
+        const svg = document.getElementById('lallyHabitSvg');
+        if (!svg) return;
+
+        const mapX = (day) => 36 + (Math.min(90, Math.max(0, day)) / 90) * 520;
+        const mapY = (pct) => 14 + ((100 - Math.min(100, Math.max(0, pct))) / 100) * 100;
+
+        let pathD = '';
+        for (let d = 0; d <= 90; d += 2) {
+          const a = ApexScienceEngine.computeLallyAutomaticity(d, 0);
+          pathD += (d === 0 ? `M ${mapX(d).toFixed(1)} ${mapY(a).toFixed(1)}` : ` L ${mapX(d).toFixed(1)} ${mapY(a).toFixed(1)}`);
+        }
+
+        const x66 = mapX(66).toFixed(1);
+        const curX = mapX(h.effectiveDays).toFixed(1);
+        const curY = mapY(autoPct).toFixed(1);
+
+        svg.innerHTML = `
+          <line x1="36" y1="114" x2="556" y2="114" stroke="var(--border-focus)" stroke-width="1" />
+          <line x1="${x66}" y1="14" x2="${x66}" y2="114" stroke="var(--text-muted)" stroke-dasharray="3 3" stroke-width="1" />
+          <text x="${Number(x66) - 70}" y="24" fill="var(--text-secondary)" font-size="9.5" font-family="JetBrains Mono">μ = 66d Plateau</text>
+          <text x="36" y="128" fill="var(--text-muted)" font-size="9" font-family="JetBrains Mono">0d</text>
+          <text x="${Number(x66) - 8}" y="128" fill="var(--text-secondary)" font-size="9" font-family="JetBrains Mono">66d</text>
+          <text x="538" y="128" fill="var(--text-muted)" font-size="9" font-family="JetBrains Mono">90d</text>
+          <path d="${pathD}" fill="none" stroke="var(--accent-sage)" stroke-width="2" />
+          <circle cx="${curX}" cy="${curY}" r="5" fill="var(--accent-sage)" />
+          <text x="${Math.min(440, Number(curX) + 8)}" y="${Math.max(24, Number(curY) + 3)}" fill="var(--text-primary)" font-size="10" font-family="JetBrains Mono">Day ${h.effectiveDays} (${autoPct}%)</text>
+        `;
+      }
+
+      recordHabitRep(completedToday) {
+        if (!this.state.habit) this.state.habit = { title: 'Daily Deep Execution Block', effectiveDays: 1, missedDays: 0 };
+        if (completedToday) {
+          this.state.habit.effectiveDays = Number(this.state.habit.effectiveDays || 0) + 1;
+          const newAuto = ApexScienceEngine.computeLallyAutomaticity(this.state.habit.effectiveDays, this.state.habit.missedDays);
+          this.showToast(`Day ${this.state.habit.effectiveDays}/66 logged · Automaticity ${newAuto}%`, 'emerald');
+        } else {
+          this.state.habit.missedDays = Number(this.state.habit.missedDays || 0) + 1;
+          const newAuto = ApexScienceEngine.computeLallyAutomaticity(this.state.habit.effectiveDays, this.state.habit.missedDays);
+          this.showToast(`1 missed day absorbed · Automaticity remains ${newAuto}%`, 'amber');
+        }
+        this.persistState();
+        this.renderAll();
+      }
+
+      updateHabitTitle(val) {
+        if (!this.state.habit) this.state.habit = { effectiveDays: 1, missedDays: 0 };
+        this.state.habit.title = val.trim();
+        this.persistState();
+        this.renderAll();
+      }
+
+      updateReferenceClassPreview() {
+        const cat = document.getElementById('taskCategoryInput')?.value || 'Engineering';
+        const rawPlanned = Number(document.getElementById('taskPlannedInput')?.value) || 40;
+        const forecast = ApexScienceEngine.computeReferenceClassForecast(this.state.tasks, cat, rawPlanned);
+        const textEl = document.getElementById('referenceClassSuggestionText');
+        if (textEl) {
+          if (forecast.sampleSize > 0 && forecast.multiplier !== 1.0) {
+            textEl.textContent = `${rawPlanned}m → ~${forecast.adjustedMinutes}m reality-adjusted (${forecast.multiplier}x)`;
+          } else {
+            textEl.textContent = `${rawPlanned}m baseline (1.0x)`;
+          }
+        }
+        this._latestSuggestedMinutes = forecast.adjustedMinutes;
+      }
+
+      applyReferenceClassEstimate() {
+        const input = document.getElementById('taskPlannedInput');
+        if (input && this._latestSuggestedMinutes) {
+          input.value = this._latestSuggestedMinutes;
+          this.updateReferenceClassPreview();
+          this.showToast(`Applied ${this._latestSuggestedMinutes}m reality-adjusted estimate.`, 'amber');
+        }
+      }
+
+      handleAddTask(e) {
+        e.preventDefault();
+        const titleEl = document.getElementById('taskTitleInput');
+        const catEl = document.getElementById('taskCategoryInput');
+        const planEl = document.getElementById('taskPlannedInput');
+        const ifThenEl = document.getElementById('taskIfThenInput');
+
+        const newTask = {
+          id: 'task-' + Date.now(),
+          title: titleEl.value.trim(),
+          category: catEl.value,
+          plannedMinutes: Number(planEl.value) || 30,
+          actualMinutes: 0,
+          completed: false,
+          ifThenPlan: ifThenEl.value.trim(),
+          obstacle: 'None',
+          date: new Date().toISOString().slice(0, 10),
+          isSample: false
+        };
+
+        this.state.tasks.unshift(newTask);
+        this.focusTimer.activeTaskId = newTask.id;
+        titleEl.value = '';
+        ifThenEl.value = '';
+        this.persistState();
+        this.renderAll();
+        this.showToast(`Queued "${newTask.title}"`, 'emerald');
+      }
+
+      toggleTaskCompleted(taskId) {
+        const t = this.state.tasks.find(x => x.id === taskId);
+        if (!t) return;
+        t.completed = !t.completed;
+        if (t.completed && (!t.actualMinutes || t.actualMinutes === 0)) {
+          t.actualMinutes = t.plannedMinutes;
+        }
+        this.persistState();
+        this.renderAll();
+      }
+
+      updateTaskActualMinutes(taskId, val) {
+        const t = this.state.tasks.find(x => x.id === taskId);
+        if (!t) return;
+        t.actualMinutes = Math.max(0, Number(val) || 0);
+        this.persistState();
+        this.renderAll();
+      }
+
+      updateTaskObstacle(taskId, obstacleVal) {
+        const t = this.state.tasks.find(x => x.id === taskId);
+        if (!t) return;
+        t.obstacle = obstacleVal;
+        this.persistState();
+        this.renderAll();
+      }
+
+      deleteTask(taskId) {
+        this.state.tasks = this.state.tasks.filter(t => t.id !== taskId);
+        if (this.focusTimer.activeTaskId === taskId) {
+          this.focusTimer.activeTaskId = this.state.tasks[0]?.id || null;
+          this.stopFocusInterval();
+        }
+        this.persistState();
+        this.renderAll();
+      }
+
+      selectGoal(goalId) {
+        this.state.activeGoalId = goalId;
+        this.persistState();
+        this.renderAll();
+      }
+
+      saveDailyMission() {
+        const mInput = document.getElementById('inputDailyMission');
+        const outInput = document.getElementById('inputWoopOutcome');
+        const ifInput = document.getElementById('inputMissionIf');
+        const thenInput = document.getElementById('inputMissionThen');
+        this.state.dailyMission = {
+          date: new Date().toISOString().slice(0, 10),
+          missionText: mInput?.value || '',
+          woopOutcome: outInput?.value || '',
+          ifObstacle: ifInput?.value || '',
+          thenResponse: thenInput?.value || '',
+          isSample: false
+        };
+        const savedEl = document.getElementById('missionSavedIndicator');
+        if (savedEl) {
+          savedEl.style.opacity = '1';
+          setTimeout(() => { savedEl.style.opacity = '0'; }, 1400);
+        }
+        this.persistState();
+        this.renderExecutionModule();
+        this.renderNextUsefulActionBanner();
+      }
+
+      selectTaskForFocus(taskId) {
+        this.focusTimer.activeTaskId = taskId;
+        this.focusTimer.elapsedSeconds = 0;
+        this.renderExecutionModule();
+      }
+
+      toggleFocusTimer() {
+        if (!this.focusTimer.activeTaskId && this.state.tasks.length > 0) {
+          this.focusTimer.activeTaskId = this.state.tasks[0].id;
+        }
+        if (!this.focusTimer.activeTaskId) {
+          this.showToast('Add a task first to start focus.', 'amber');
+          return;
+        }
+
+        if (this.focusTimer.running) {
+          this.stopFocusInterval();
+        } else {
+          this.focusTimer.running = true;
+          this.focusTimer.intervalHandle = setInterval(() => {
+            this.focusTimer.elapsedSeconds += 1;
+            this.renderFocusTimerCockpit();
+          }, 1000);
+        }
+        this.renderFocusTimerCockpit();
+      }
+
+      stopFocusInterval() {
+        this.focusTimer.running = false;
+        if (this.focusTimer.intervalHandle) {
+          clearInterval(this.focusTimer.intervalHandle);
+          this.focusTimer.intervalHandle = null;
+        }
+      }
+
+      commitFocusMinutesToTask(fromElapsed = false) {
+        const t = this.state.tasks.find(x => x.id === this.focusTimer.activeTaskId);
+        if (!t) return;
+        const addedMins = fromElapsed
+          ? Math.max(1, Math.round(this.focusTimer.elapsedSeconds / 60))
+          : 5;
+        t.actualMinutes = (Number(t.actualMinutes) || 0) + addedMins;
+        if (fromElapsed) this.focusTimer.elapsedSeconds = 0;
+        this.persistState();
+        this.renderAll();
+        this.showToast(`Logged +${addedMins}m to "${t.title}"`, 'emerald');
+      }
+
+      completeActiveFocusTask() {
+        const t = this.state.tasks.find(x => x.id === this.focusTimer.activeTaskId);
+        if (!t) return;
+        if (this.focusTimer.elapsedSeconds >= 30) {
+          t.actualMinutes = (Number(t.actualMinutes) || 0) + Math.max(1, Math.round(this.focusTimer.elapsedSeconds / 60));
+        } else if (!t.actualMinutes || t.actualMinutes === 0) {
+          t.actualMinutes = t.plannedMinutes;
+        }
+        t.completed = true;
+        this.focusTimer.elapsedSeconds = 0;
+        this.stopFocusInterval();
+        const nextOpen = this.state.tasks.find(x => !x.completed);
+        if (nextOpen) this.focusTimer.activeTaskId = nextOpen.id;
+        this.persistState();
+        this.renderAll();
+        this.showToast(`Completed "${t.title}"`, 'emerald');
+      }
+
+      renderFocusTimerCockpit() {
+        const t = this.state.tasks.find(x => x.id === this.focusTimer.activeTaskId);
+        const mins = String(Math.floor(this.focusTimer.elapsedSeconds / 60)).padStart(2, '0');
+        const secs = String(this.focusTimer.elapsedSeconds % 60).padStart(2, '0');
+        const formatted = `${mins}:${secs}`;
+
+        const bigDisplay = document.getElementById('focusTimerBigDisplay');
+        const label = document.getElementById('focusActiveTaskLabel');
+        const sub = document.getElementById('focusActiveIfThenSub');
+        const plannedMeta = document.getElementById('focusPlannedMeta');
+        const loggedMeta = document.getElementById('focusLoggedMeta');
+        const stateBadge = document.getElementById('focusSessionStateBadge');
+        const btnText = document.getElementById('focusStartPauseText');
+        const btnIcon = document.getElementById('focusStartPauseIcon');
+
+        if (bigDisplay) bigDisplay.textContent = formatted;
+        if (label) label.textContent = t ? t.title : 'Queue is clear — add a task below';
+        if (sub) {
+          sub.textContent = (t && t.ifThenPlan)
+            ? `Shield: ${t.ifThenPlan}`
+            : 'Press F to toggle focus timer, or N to add a task.';
+        }
+        if (plannedMeta) plannedMeta.textContent = t ? `${t.plannedMinutes}m` : '--m';
+        if (loggedMeta) loggedMeta.textContent = t ? `${t.actualMinutes || 0}m` : '--m';
+
+        if (stateBadge) {
+          stateBadge.textContent = this.focusTimer.running ? 'In Flow' : 'Current Focus';
+        }
+        if (btnText) btnText.textContent = this.focusTimer.running ? 'Pause' : 'Focus';
+        if (btnIcon) btnIcon.className = this.focusTimer.running ? 'fa-solid fa-pause text-[10px]' : 'fa-solid fa-play text-[10px]';
+      }
+
+      renderRealityMirrorModule() {
+        const tasks = this.state.tasks || [];
+        const completed = tasks.filter(t => t.completed).length;
+        const rate = tasks.length > 0 ? Math.round((completed / tasks.length) * 100) : 0;
+
+        const rateEl = document.getElementById('mirrorCompletionRate');
+        const subEl = document.getElementById('mirrorCompletionSubtext');
+        if (rateEl) rateEl.textContent = `${rate}%`;
+        if (subEl) subEl.textContent = `${completed} of ${tasks.length} tasks`;
+
+        const overallForecast = ApexScienceEngine.computeReferenceClassForecast(tasks, 'All', 30);
+        const mape = ApexScienceEngine.computeMAPE(tasks);
+        const ratioEl = document.getElementById('mirrorEstimationRatio');
+        const mapeEl = document.getElementById('mirrorMapeSubtext');
+        if (ratioEl) ratioEl.textContent = `${overallForecast.multiplier.toFixed(2)}x`;
+        if (mapeEl) mapeEl.textContent = `MAPE: ${mape}%`;
+
+        const counts = {};
+        const byObstacleTasks = {};
+        tasks.forEach(t => {
+          if (t.obstacle && t.obstacle !== 'None') {
+            counts[t.obstacle] = (counts[t.obstacle] || 0) + 1;
+            if (!byObstacleTasks[t.obstacle]) byObstacleTasks[t.obstacle] = [];
+            byObstacleTasks[t.obstacle].push(t.title);
+          }
+        });
+        const sortedObs = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+        const topObsEl = document.getElementById('mirrorTopObstacle');
+        const topObsEvEl = document.getElementById('mirrorTopObstacleEvidence');
+        if (sortedObs.length > 0) {
+          const [obsName, count] = sortedObs[0];
+          if (topObsEl) topObsEl.textContent = `${obsName} (${count}×)`;
+          if (topObsEvEl) topObsEvEl.textContent = byObstacleTasks[obsName].join(', ');
+        } else {
+          if (topObsEl) topObsEl.textContent = 'None Recorded';
+          if (topObsEvEl) topObsEvEl.textContent = 'Zero friction tags logged';
+        }
+
+        const categories = ['Engineering', 'Deep Work', 'Research / Reading', 'Writing', 'Operations'];
+        const catTbody = document.getElementById('mirrorCategoryTableBody');
+        if (catTbody) {
+          catTbody.innerHTML = categories.map(cat => {
+            const catTasks = tasks.filter(t => t.category === cat && Number(t.plannedMinutes) > 0 && Number(t.actualMinutes) > 0);
+            if (catTasks.length === 0) return '';
+            const pSum = catTasks.reduce((s, t) => s + Number(t.plannedMinutes), 0);
+            const aSum = catTasks.reduce((s, t) => s + Number(t.actualMinutes), 0);
+            const mult = (aSum / pSum).toFixed(2);
+            const advice = mult > 1.15 ? `Budget ${mult}×` : `Calibrated`;
+            return `
+              <tr>
+                <td class="py-2.5 font-medium">${cat}</td>
+                <td class="py-2.5 font-mono-num text-secondary-tone">${catTasks.length}</td>
+                <td class="py-2.5 font-mono-num text-secondary-tone">${pSum}m</td>
+                <td class="py-2.5 font-mono-num text-secondary-tone">${aSum}m</td>
+                <td class="py-2.5 font-mono-num font-medium ${mult > 1.15 ? 'text-[var(--accent-amber)]' : 'text-[var(--accent-sage)]'}">${mult}×</td>
+                <td class="py-2.5 text-xs text-secondary-tone">${advice}</td>
+              </tr>
+            `;
+          }).join('') || `<tr><td colspan="6" class="py-6 text-center text-muted-tone text-xs">Log actual durations to see Reference-Class multipliers.</td></tr>`;
+        }
+
+        const obsListEl = document.getElementById('mirrorObstacleBreakdownList');
+        if (obsListEl) {
+          if (sortedObs.length === 0) {
+            obsListEl.innerHTML = `<div class="p-4 rounded-xl surface-subtle text-xs text-muted-tone">No friction tags recorded yet.</div>`;
+          } else {
+            obsListEl.innerHTML = sortedObs.map(([obs, count]) => {
+              const bct = OBSTACLE_BCT_COUNTERMEASURES[obs] || {
+                bctCode: 'Problem Solving (BCTTv1 1.2)',
+                advice: 'Formulate an explicit If-Then contingency before your next session.'
+              };
+              return `
+                <div class="p-3.5 rounded-xl surface-subtle space-y-1">
+                  <div class="flex items-center justify-between">
+                    <span class="font-medium text-xs text-[var(--text-primary)]">${this.escapeHtml(obs)}</span>
+                    <span class="text-[11px] font-mono-num text-[var(--accent-amber)]">${count}×</span>
+                  </div>
+                  <div class="text-[11px] text-[var(--accent-sage)]">${this.escapeHtml(bct.bctCode)}</div>
+                  <p class="text-xs text-secondary-tone leading-relaxed">${this.escapeHtml(bct.advice)}</p>
+                </div>
+              `;
+            }).join('');
+          }
+        }
+
+        const fullLogBody = document.getElementById('mirrorFullLogTableBody');
+        if (fullLogBody) {
+          fullLogBody.innerHTML = tasks.map(t => {
+            const refAdj = ApexScienceEngine.computeReferenceClassForecast(tasks, t.category, t.plannedMinutes).adjustedMinutes;
+            const delta = (Number(t.actualMinutes) || 0) - (Number(t.plannedMinutes) || 0);
+            const deltaStr = t.actualMinutes ? (delta > 0 ? `+${delta}m` : `${delta}m`) : '--';
+            return `
+              <tr>
+                <td class="py-2.5 px-2 font-mono-num text-xs text-muted-tone">${t.date || 'Today'}</td>
+                <td class="py-2.5 px-2 font-medium">${this.escapeHtml(t.title)}</td>
+                <td class="py-2.5 px-2 font-mono-num text-xs text-secondary-tone">${t.plannedMinutes}m → ${refAdj}m → <strong class="text-[var(--text-primary)]">${t.actualMinutes || 0}m</strong></td>
+                <td class="py-2.5 px-2 font-mono-num text-xs ${delta > 5 ? 'text-[var(--accent-amber)]' : 'text-[var(--accent-sage)]'}">${deltaStr}</td>
+                <td class="py-2.5 px-2 text-xs font-mono-num text-secondary-tone">${t.ifThenPlan ? 'Yes' : '—'}</td>
+                <td class="py-2.5 px-2">
+                  <select onchange="window.apexApp.updateTaskObstacle('${t.id}', this.value)" class="input-quiet px-2 py-1 text-xs">
+                    ${OBSTACLE_OPTIONS.map(opt => `<option value="${opt}" ${t.obstacle === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+                  </select>
+                </td>
+              </tr>
+            `;
+          }).join('') || `<tr><td colspan="6" class="py-6 text-center text-muted-tone">No tasks logged yet.</td></tr>`;
+        }
+      }
+
+      renderSkillsModule() {
+        const skills = this.state.skills || [];
+        this.renderFSRSSvg(skills);
+
+        const container = document.getElementById('skillsCardsContainer');
+        if (!container) return;
+
+        if (skills.length === 0) {
+          container.innerHTML = `<div class="col-span-2 p-10 surface-card text-center text-muted-tone text-xs">No retrieval concepts tracked yet. Add a concept below to schedule active recall.</div>`;
+          return;
+        }
+
+        container.innerHTML = skills.map(s => {
+          const retrievability = ApexScienceEngine.computeFSRSRetrievability(s.elapsedDaysSinceReview, s.stabilityDays);
+          const isDue = retrievability <= 90.0;
+          const gcalUrl = this.buildGoogleCalendarUrl(s);
+
+          return `
+            <div class="surface-card p-6 space-y-4 flex flex-col justify-between ${isDue ? 'border-[var(--accent-amber)]/60' : ''}">
+              <div class="space-y-3">
+                <div class="flex items-start justify-between gap-2">
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-[11px] font-mono-num uppercase tracking-wider text-muted-tone">${this.escapeHtml(s.parentSkill)}</span>
+                      ${isDue ? '<span class="text-[10px] font-mono-num px-2 py-0.5 rounded-full bg-[var(--accent-amber-soft)] text-[var(--accent-amber)]">Review Due</span>' : ''}
+                    </div>
+                    <h4 class="text-base font-semibold mt-0.5">${this.escapeHtml(s.subskill)}</h4>
+                  </div>
+                  <button onclick="window.apexApp.deleteSkill('${s.id}')" class="text-muted-tone hover:text-[var(--accent-coral)] text-xs p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+
+                <!-- Quiet DSR Line -->
+                <div class="flex items-center gap-4 text-xs font-mono-num text-secondary-tone">
+                  <span>Retrievability <strong class="${isDue ? 'text-[var(--accent-amber)]' : 'text-[var(--accent-sage)]'}">${retrievability}%</strong></span>
+                  <span>·</span>
+                  <span>Stability <strong>${s.stabilityDays}d</strong></span>
+                  <span>·</span>
+                  <span>D <strong>${s.difficultyD}</strong></span>
+                </div>
+
+                <!-- Prompt -->
+                <div class="p-3.5 rounded-xl surface-subtle space-y-1">
+                  <span class="text-[10px] font-mono-num uppercase text-muted-tone block">Recall Prompt</span>
+                  <p class="text-xs sm:text-sm text-[var(--text-primary)] leading-relaxed">${this.escapeHtml(s.prompt)}</p>
+                </div>
+
+                ${s.errorLog && s.errorLog !== 'None logged yet' ? `
+                  <p class="text-xs text-secondary-tone"><strong class="text-[var(--accent-coral)] font-normal">Past Pitfall:</strong> ${this.escapeHtml(s.errorLog)}</p>
+                ` : ''}
+              </div>
+
+              <!-- Grading & Calendar Ping -->
+              <div class="pt-3 border-t border-hairline space-y-2.5">
+                <div class="grid grid-cols-4 gap-1.5">
+                  <button onclick="window.apexApp.gradeSkillRetrieval('${s.id}', 1)" class="py-1.5 rounded-lg text-xs font-mono-num surface-subtle hover:border-[var(--accent-coral)] text-[var(--accent-coral)] transition">Again</button>
+                  <button onclick="window.apexApp.gradeSkillRetrieval('${s.id}', 2)" class="py-1.5 rounded-lg text-xs font-mono-num surface-subtle hover:border-[var(--accent-amber)] text-[var(--accent-amber)] transition">Hard</button>
+                  <button onclick="window.apexApp.gradeSkillRetrieval('${s.id}', 3)" class="py-1.5 rounded-lg text-xs font-mono-num surface-subtle hover:border-[var(--accent-sage)] text-[var(--text-primary)] transition">Good</button>
+                  <button onclick="window.apexApp.gradeSkillRetrieval('${s.id}', 4)" class="py-1.5 rounded-lg text-xs font-mono-num bg-[var(--accent-sage-soft)] text-[var(--accent-sage)] transition">Easy</button>
+                </div>
+
+                <div class="flex items-center justify-between gap-2 pt-0.5">
+                  <a href="${gcalUrl}" target="_blank" rel="noopener noreferrer" class="text-xs text-secondary-tone hover:text-[var(--text-primary)] flex items-center gap-1.5 transition">
+                    <i class="fa-regular fa-bell text-[11px] text-[var(--accent-sage)]"></i>
+                    <span>Ping Google Calendar (+${s.intervalDays}d)</span>
+                  </a>
+                  <button onclick="window.apexApp.simulateTimeDecay('${s.id}')" class="text-[11px] font-mono-num text-muted-tone hover:text-secondary-tone" title="Simulate +2 days elapsed">
+                    +2d sim
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      renderFSRSSvg(skills) {
+        const svg = document.getElementById('fsrsCurveSvg');
+        if (!svg) return;
+
+        const mapX = (day) => 40 + (Math.min(21, Math.max(0, day)) / 21) * 535;
+        const mapY = (retPct) => 18 + ((100 - Math.max(65, Math.min(100, retPct))) / 35) * 150;
+
+        const buildCurvePath = (stability) => {
+          let d = '';
+          for (let day = 0; day <= 21; day += 0.5) {
+            const r = ApexScienceEngine.computeFSRSRetrievability(day, stability);
+            d += (day === 0 ? `M ${mapX(day).toFixed(1)} ${mapY(r).toFixed(1)}` : ` L ${mapX(day).toFixed(1)} ${mapY(r).toFixed(1)}`);
+          }
+          return d;
+        };
+
+        const y90 = mapY(90).toFixed(1);
+
+        const skillPoints = (skills || []).map(s => {
+          const ret = ApexScienceEngine.computeFSRSRetrievability(s.elapsedDaysSinceReview, s.stabilityDays);
+          const cx = mapX(s.elapsedDaysSinceReview).toFixed(1);
+          const cy = mapY(ret).toFixed(1);
+          const color = ret <= 90.0 ? 'var(--accent-amber)' : 'var(--accent-sage)';
+          return `
+            <g>
+              <circle cx="${cx}" cy="${cy}" r="5" fill="${color}" />
+              <text x="${Math.min(445, Number(cx) + 8)}" y="${Number(cy) + 3}" fill="var(--text-primary)" font-size="9.5" font-family="JetBrains Mono">${this.escapeHtml(s.subskill.slice(0, 14))} (${ret}%)</text>
+            </g>
+          `;
+        }).join('');
+
+        svg.innerHTML = `
+          <line x1="40" y1="168" x2="575" y2="168" stroke="var(--border-focus)" stroke-width="1" />
+          <line x1="40" y1="${y90}" x2="575" y2="${y90}" stroke="var(--text-muted)" stroke-dasharray="3 3" stroke-width="1" />
+          <text x="44" y="${Number(y90) - 5}" fill="var(--text-secondary)" font-size="9" font-family="JetBrains Mono">90% Target Retrieval Trigger</text>
+          <text x="6" y="22" fill="var(--text-muted)" font-size="9" font-family="JetBrains Mono">100%</text>
+          <text x="12" y="${Number(y90) + 3}" fill="var(--text-secondary)" font-size="9" font-family="JetBrains Mono">90%</text>
+          <text x="40" y="184" fill="var(--text-muted)" font-size="9" font-family="JetBrains Mono">0d</text>
+          <text x="${mapX(7)}" y="184" fill="var(--text-muted)" font-size="9" font-family="JetBrains Mono">7d</text>
+          <text x="${mapX(14)}" y="184" fill="var(--text-muted)" font-size="9" font-family="JetBrains Mono">14d</text>
+          <text x="${mapX(21) - 16}" y="184" fill="var(--text-muted)" font-size="9" font-family="JetBrains Mono">21d</text>
+          <path d="${buildCurvePath(2.5)}" fill="none" stroke="var(--border-focus)" stroke-width="1.4" />
+          <path d="${buildCurvePath(6.0)}" fill="none" stroke="var(--text-muted)" stroke-width="1.5" />
+          <path d="${buildCurvePath(14.5)}" fill="none" stroke="var(--accent-sage)" stroke-width="1.8" />
+          ${skillPoints}
+        `;
+      }
+
+      buildGoogleCalendarUrl(skill) {
+        const nextDate = new Date();
+        nextDate.setDate(nextDate.getDate() + (Number(skill.intervalDays) || 1));
+        nextDate.setHours(9, 0, 0, 0);
+        const endDate = new Date(nextDate.getTime() + 20 * 60 * 1000);
+        const fmt = (d) => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+        const title = encodeURIComponent(`[APEX Recall] ${skill.subskill}`);
+        const details = encodeURIComponent(
+          `RECALL PROMPT:\n${skill.prompt}\n\nPAST PITFALL:\n${skill.errorLog || 'None'}\n\nFSRS-6 Stability S=${skill.stabilityDays}d`
+        );
+        return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${fmt(nextDate)}/${fmt(endDate)}&details=${details}`;
+      }
+
+      downloadAllSkillsICS() {
+        const skills = this.state.skills || [];
+        if (skills.length === 0) {
+          this.showToast('Add a concept first to export an .ICS schedule.', 'amber');
+          return;
+        }
+        const fmt = (d) => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+        const events = skills.map(s => {
+          const start = new Date();
+          start.setDate(start.getDate() + (Number(s.intervalDays) || 1));
+          start.setHours(9, 0, 0, 0);
+          const end = new Date(start.getTime() + 20 * 60 * 1000);
+          return [
+            'BEGIN:VEVENT',
+            `UID:${s.id}@apex.intelligence`,
+            `DTSTAMP:${fmt(new Date())}`,
+            `DTSTART:${fmt(start)}`,
+            `DTEND:${fmt(end)}`,
+            `SUMMARY:[APEX Recall] ${s.subskill}`,
+            `DESCRIPTION:Recall Prompt: ${s.prompt.replace(/\n/g, ' ')}`,
+            'END:VEVENT'
+          ].join('\r\n');
+        }).join('\r\n');
+
+        const icsContent = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//APEX v3.0//EN', events, 'END:VCALENDAR'].join('\r\n');
+        this.triggerFileDownload('apex-recall-schedule.ics', icsContent, 'text/calendar');
+        this.showToast('Exported .ICS recall schedule.', 'emerald');
+      }
+
+      handleAddSubskill(e) {
+        e.preventDefault();
+        const parent = document.getElementById('skillParentInput').value.trim();
+        const sub = document.getElementById('skillSubskillInput').value.trim();
+        const prompt = document.getElementById('skillPromptInput').value.trim();
+        const errLog = document.getElementById('skillErrorLogInput').value.trim();
+        const initD = Number(document.getElementById('skillInitialDInput').value) || 5.0;
+
+        this.state.skills.unshift({
+          id: 'skill-' + Date.now(),
+          parentSkill: parent,
+          subskill: sub,
+          prompt,
+          errorLog: errLog || 'None logged yet',
+          difficultyD: Math.max(1, Math.min(10, initD)),
+          stabilityDays: 2.0,
+          intervalDays: 2,
+          repetitions: 1,
+          demonstratedMastery: 55,
+          elapsedDaysSinceReview: 0.2,
+          lastRating: 3,
+          isSample: false
+        });
+        e.target.reset();
+        this.persistState();
+        this.renderAll();
+        this.showToast(`Scheduled "${sub}"`, 'emerald');
+      }
+
+      gradeSkillRetrieval(skillId, ratingG) {
+        const s = this.state.skills.find(x => x.id === skillId);
+        if (!s) return;
+        const res = ApexScienceEngine.computeFSRSNextState(
+          s.difficultyD,
+          s.stabilityDays,
+          s.elapsedDaysSinceReview,
+          s.repetitions,
+          ratingG
+        );
+        s.difficultyD = res.nextD;
+        s.stabilityDays = res.nextS;
+        s.intervalDays = res.nextIntervalDays;
+        s.repetitions = res.repetitions;
+        s.demonstratedMastery = res.demonstratedMastery;
+        s.elapsedDaysSinceReview = 0;
+        s.lastRating = ratingG;
+
+        this.persistState();
+        this.renderAll();
+        this.showToast(`Next review in +${s.intervalDays}d (Stability ${s.stabilityDays}d)`, 'emerald');
+      }
+
+      simulateTimeDecay(skillId) {
+        const s = this.state.skills.find(x => x.id === skillId);
+        if (!s) return;
+        s.elapsedDaysSinceReview = Number((Number(s.elapsedDaysSinceReview || 0) + 2).toFixed(1));
+        this.persistState();
+        this.renderAll();
+      }
+
+      deleteSkill(skillId) {
+        this.state.skills = this.state.skills.filter(s => s.id !== skillId);
+        this.persistState();
+        this.renderAll();
+      }
+
+      renderDecisionsModule() {
+        const decisions = this.state.decisions || [];
+        const brierStats = ApexScienceEngine.computeAggregateBrierMetrics(decisions);
+
+        const meanEl = document.getElementById('decisionMeanBrier');
+        const tierEl = document.getElementById('decisionBrierTier');
+        const skillEl = document.getElementById('decisionSkillScore');
+        const countEl = document.getElementById('decisionResolvedCount');
+        const biasEl = document.getElementById('decisionBiasSummary');
+        const bucketsBody = document.getElementById('decisionCalibrationBucketsBody');
+
+        if (meanEl) meanEl.textContent = brierStats.meanBrier !== null ? brierStats.meanBrier.toFixed(3) : '--';
+        if (tierEl) tierEl.textContent = brierStats.tier;
+        if (skillEl) {
+          skillEl.textContent = brierStats.skillScorePct !== null
+            ? (brierStats.skillScorePct >= 0 ? `+${brierStats.skillScorePct}%` : `${brierStats.skillScorePct}%`)
+            : '--';
+        }
+        if (countEl) countEl.textContent = `${brierStats.count} / ${decisions.length} resolved`;
+        if (biasEl) biasEl.textContent = brierStats.biasText;
+
+        if (bucketsBody) {
+          bucketsBody.innerHTML = (brierStats.buckets || []).map(b => `
+            <tr>
+              <td class="py-2 font-sans">${b.label}</td>
+              <td class="py-2 text-secondary-tone">${b.count}</td>
+              <td class="py-2 text-secondary-tone">${b.meanProb}</td>
+              <td class="py-2 text-[var(--accent-sage)]">${b.actualHit}</td>
+              <td class="py-2 text-secondary-tone">${b.meanBrier}</td>
+            </tr>
+          `).join('') || `<tr><td colspan="5" class="py-4 text-center text-muted-tone">Resolve predictions to view calibration.</td></tr>`;
+        }
+
+        const listEl = document.getElementById('decisionsListContainer');
+        if (!listEl) return;
+
+        if (decisions.length === 0) {
+          listEl.innerHTML = `<div class="p-8 surface-card text-center text-muted-tone text-xs">No forecasts logged yet.</div>`;
+          return;
+        }
+
+        listEl.innerHTML = decisions.map(d => {
+          const isResolved = d.status === 'resolved';
+          const brier = isResolved ? ApexScienceEngine.computeBrierScore(d.probability, d.outcome) : null;
+          return `
+            <div class="surface-card p-6 space-y-3">
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <div class="flex items-center gap-2.5 text-xs font-mono-num">
+                    <span class="text-[var(--accent-sage)] font-medium">${d.probability}% forecast</span>
+                    <span class="text-muted-tone">·</span>
+                    ${isResolved
+                      ? `<span class="text-secondary-tone">${d.outcome === 1 ? 'Confirmed (1)' : 'Did Not Occur (0)'} · Brier ${brier}</span>`
+                      : '<span class="text-[var(--accent-amber)]">Pending</span>'}
+                  </div>
+                  <h4 class="text-base font-semibold mt-1">${this.escapeHtml(d.title)}</h4>
+                </div>
+                <button onclick="window.apexApp.deleteDecision('${d.id}')" class="text-muted-tone hover:text-[var(--accent-coral)] text-xs p-1">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div class="p-3 rounded-lg surface-subtle">
+                  <span class="text-[10px] font-mono-num uppercase text-muted-tone block mb-0.5">Prediction</span>
+                  <span>${this.escapeHtml(d.prediction)}</span>
+                </div>
+                <div class="p-3 rounded-lg surface-subtle">
+                  <span class="text-[10px] font-mono-num uppercase text-muted-tone block mb-0.5">Alternatives</span>
+                  <span class="text-secondary-tone">${this.escapeHtml(d.alternatives)}</span>
+                </div>
+                <div class="p-3 rounded-lg surface-subtle">
+                  <span class="text-[10px] font-mono-num uppercase text-muted-tone block mb-0.5">Pre-Mortem</span>
+                  <span class="text-secondary-tone">${this.escapeHtml(d.premortem)}</span>
+                </div>
+              </div>
+
+              ${isResolved
+                ? `<p class="text-xs text-secondary-tone pt-1"><strong>Review:</strong> ${this.escapeHtml(d.reviewNotes)}</p>`
+                : `<div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-hairline">
+                     <input id="reviewNote-${d.id}" type="text" placeholder="Outcome reflection note..." class="flex-1 min-w-[180px] input-quiet px-3 py-1.5 text-xs" />
+                     <div class="flex items-center gap-2">
+                       <button onclick="window.apexApp.resolveDecision('${d.id}', 1)" class="px-3 py-1.5 rounded-lg bg-[var(--accent-sage-soft)] text-[var(--accent-sage)] text-xs font-medium">
+                         Occurred (1)
+                       </button>
+                       <button onclick="window.apexApp.resolveDecision('${d.id}', 0)" class="px-3 py-1.5 rounded-lg surface-subtle text-secondary-tone hover:text-[var(--accent-coral)] text-xs font-medium">
+                         Did Not Occur (0)
+                       </button>
+                     </div>
+                   </div>`}
+            </div>
+          `;
+        }).join('');
+      }
+
+      handleAddDecision(e) {
+        e.preventDefault();
+        this.state.decisions.unshift({
+          id: 'dec-' + Date.now(),
+          title: document.getElementById('decTitleInput').value.trim(),
+          alternatives: document.getElementById('decAlternativesInput').value.trim(),
+          prediction: document.getElementById('decPredictionInput').value.trim(),
+          probability: Number(document.getElementById('decProbInput').value) || 70,
+          confidence: Number(document.getElementById('decConfidenceInput').value) || 4,
+          premortem: document.getElementById('decPremortemInput').value.trim(),
+          status: 'pending',
+          outcome: null,
+          reviewNotes: '',
+          date: new Date().toISOString().slice(0, 10),
+          isSample: false
+        });
+        e.target.reset();
+        this.persistState();
+        this.renderAll();
+        this.showToast('Saved decision forecast.', 'emerald');
+      }
+
+      resolveDecision(decId, outcomeVal) {
+        const d = this.state.decisions.find(x => x.id === decId);
+        if (!d) return;
+        const noteEl = document.getElementById(`reviewNote-${decId}`);
+        d.status = 'resolved';
+        d.outcome = outcomeVal;
+        d.reviewNotes = noteEl?.value?.trim() || (outcomeVal === 1 ? 'Confirmed occurred.' : 'Did not occur.');
+        const brier = ApexScienceEngine.computeBrierScore(d.probability, d.outcome);
+        this.persistState();
+        this.renderAll();
+        this.showToast(`Resolved · Brier score ${brier}`, 'emerald');
+      }
+
+      deleteDecision(decId) {
+        this.state.decisions = this.state.decisions.filter(d => d.id !== decId);
+        this.persistState();
+        this.renderAll();
+      }
+
+      renderWeeklyReview() {
+        const review = ApexScienceEngine.synthesizeWeeklyReview(this.state);
+
+        const recCard = document.getElementById('weeklySingleRecommendationCard');
+        if (recCard) {
+          recCard.innerHTML = `
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-[11px] font-mono-num uppercase tracking-wider text-[var(--accent-sage)] font-medium">
+                Suggested Focus for Next Week
+              </span>
+              <span class="text-[11px] font-mono-num text-muted-tone">${this.escapeHtml(review.recommendation.scientificBasis)}</span>
+            </div>
+            <h3 class="text-base sm:text-lg font-semibold">${this.escapeHtml(review.recommendation.headline)}</h3>
+            <p class="text-xs sm:text-sm text-secondary-tone leading-relaxed">${this.escapeHtml(review.recommendation.actionStep)}</p>
+            <div class="pt-2 border-t border-hairline">
+              <ul class="list-disc list-inside text-xs text-muted-tone space-y-1">
+                ${review.recommendation.supportingObservations.map(obs => `<li>${this.escapeHtml(obs)}</li>`).join('')}
+              </ul>
+            </div>
+          `;
+        }
+
+        const factsEl = document.getElementById('weeklyFactsList');
+        if (factsEl) {
+          factsEl.innerHTML = review.facts.map(f => `
+            <div class="p-3.5 rounded-xl surface-subtle space-y-1">
+              <div class="font-medium text-xs sm:text-sm">${this.escapeHtml(f.title)}</div>
+              <p class="text-xs text-muted-tone font-mono-num">${this.escapeHtml(f.evidence)}</p>
+            </div>
+          `).join('');
+        }
+
+        const hypEl = document.getElementById('weeklyHypothesesList');
+        if (hypEl) {
+          hypEl.innerHTML = review.hypotheses.map(h => `
+            <div class="p-3.5 rounded-xl surface-subtle space-y-1">
+              <div class="font-medium text-xs sm:text-sm text-[var(--accent-amber)]">${this.escapeHtml(h.statement)}</div>
+              <p class="text-xs text-secondary-tone">${this.escapeHtml(h.testablePrediction)}</p>
+            </div>
+          `).join('');
+        }
+
+        const matrixBody = document.getElementById('empiricalEvidenceMatrixBody');
+        if (matrixBody) {
+          matrixBody.innerHTML = review.evidenceMatrix.map(row => `
+            <tr>
+              <td class="py-2.5 px-3 font-medium">${this.escapeHtml(row.mechanic)}</td>
+              <td class="py-2.5 px-3 text-secondary-tone">${this.escapeHtml(row.source)}</td>
+              <td class="py-2.5 px-3 font-mono-num text-[var(--accent-sage)]">${this.escapeHtml(row.effect)}</td>
+              <td class="py-2.5 px-3 font-mono-num text-secondary-tone">${this.escapeHtml(row.liveStatus)}</td>
+            </tr>
+          `).join('');
+        }
+      }
+
+      runUnitTests(silent = false) {
+        const tests = [];
+        const assert = (name, actual, expected) => {
+          const pass = JSON.stringify(actual) === JSON.stringify(expected);
+          tests.push({ name, pass, actual, expected });
+        };
+
+        assert('1. FSRS-6 R(t=0, S=10) equals 100%', ApexScienceEngine.computeFSRSRetrievability(0, 10), 100);
+        assert('2. FSRS-6 R(S, S) equals 90.0%', ApexScienceEngine.computeFSRSRetrievability(6.0, 6.0), 90);
+
+        const fsrsLapse = ApexScienceEngine.computeFSRSNextState(5.0, 10.0, 10.0, 3, 1);
+        assert('3. FSRS-6 Rating 1 (Again) contracts Stability S', fsrsLapse.nextS < 10.0 && fsrsLapse.nextD > 5.0, true);
+
+        const fsrsGood = ApexScienceEngine.computeFSRSNextState(5.0, 6.0, 6.0, 2, 3);
+        const fsrsEasy = ApexScienceEngine.computeFSRSNextState(5.0, 6.0, 6.0, 2, 4);
+        assert('4. FSRS-6 Rating 4 (Easy) > Rating 3 (Good) Stability', fsrsEasy.nextS > fsrsGood.nextS, true);
+
+        const autoDay66 = ApexScienceEngine.computeLallyAutomaticity(66, 0);
+        assert('5. Lally 66d plateau reaches ~95.0%', autoDay66 >= 94.8 && autoDay66 <= 95.2, true);
+
+        const autoBefore = ApexScienceEngine.computeLallyAutomaticity(30, 0);
+        const autoAfter = ApexScienceEngine.computeLallyAutomaticity(30, 1);
+        assert('6. Lally single miss preserves automaticity (<1.5% slip)', autoAfter > 70 && (autoBefore - autoAfter) < 1.5, true);
+
+        const fullWoop = ApexScienceEngine.computeWoopCompleteness({
+          missionText: 'Ship', woopOutcome: 'Pass', ifObstacle: 'Ping', thenResponse: 'Mute'
+        });
+        assert('7. WOOP 4/4 completeness activates MCII', fullWoop.effectActive && fullWoop.pct === 100, true);
+
+        const partialWoop = ApexScienceEngine.computeWoopCompleteness({
+          missionText: 'Ship', woopOutcome: '', ifObstacle: 'Ping', thenResponse: ''
+        });
+        assert('8. WOOP partial completeness flags 50%', partialWoop.pct === 50 && !partialWoop.effectActive, true);
+
+        assert('9. Estimation ratio 60m / 45m = 1.33x', ApexScienceEngine.computeEstimationRatio(45, 60), 1.33);
+        assert('10. MAPE on [40->50, 30->30] = 12.5%', ApexScienceEngine.computeMAPE([
+          { plannedMinutes: 40, actualMinutes: 50 },
+          { plannedMinutes: 30, actualMinutes: 30 }
+        ]), 12.5);
+
+        const rc = ApexScienceEngine.computeReferenceClassForecast(
+          [{ category: 'Engineering', plannedMinutes: 40, actualMinutes: 60 }], 'Engineering', 40
+        );
+        assert('11. Reference-class scales 40m by 1.5x to 60m', rc.adjustedMinutes, 60);
+
+        assert('12. Brier Score (90%, 1) = 0.01', ApexScienceEngine.computeBrierScore(90, 1), 0.01);
+        assert('13. Brier Score (50%, 0) = 0.25', ApexScienceEngine.computeBrierScore(50, 0), 0.25);
+
+        const brierAgg = ApexScienceEngine.computeAggregateBrierMetrics([
+          { status: 'resolved', probability: 90, outcome: 1 },
+          { status: 'resolved', probability: 80, outcome: 1 }
+        ]);
+        assert('14. Brier Skill Score > 80% for accurate forecasts', brierAgg.skillScorePct > 80, true);
+
+        const synth = ApexScienceEngine.synthesizeWeeklyReview(getSampleDataset());
+        assert('15. Weekly Review separates 4 facts & >=2 hypotheses', synth.facts.length === 4 && synth.hypotheses.length >= 2, true);
+        assert('16. Evidence Matrix populates all 7 mechanisms', synth.evidenceMatrix.length, 7);
+
+        const passedCount = tests.filter(t => t.pass).length;
+        const bar = document.getElementById('unitTestSummaryBar');
+        const grid = document.getElementById('unitTestResultsGrid');
+
+        if (bar) {
+          bar.innerHTML = `<span class="text-[var(--accent-sage)] font-medium">${passedCount}/${tests.length} deterministic tests passing</span> · &lt;1ms`;
+        }
+        if (grid) {
+          grid.innerHTML = tests.map(t => `
+            <div class="p-2 rounded-lg surface-subtle flex items-center justify-between gap-2">
+              <span class="truncate text-secondary-tone"><i class="fa-solid ${t.pass ? 'fa-check text-[var(--accent-sage)]' : 'fa-xmark text-[var(--accent-coral)]'} mr-1.5"></i>${this.escapeHtml(t.name)}</span>
+              <span class="text-[10px] text-muted-tone">${JSON.stringify(t.actual)}</span>
+            </div>
+          `).join('');
+        }
+        if (!silent) {
+          this.showToast(`Verified ${passedCount}/${tests.length} unit tests.`, 'emerald');
+        }
+      }
+
+      renderSchemaInspector() {
+        const pre = document.getElementById('schemaInspectorPre');
+        if (pre) pre.textContent = JSON.stringify(this.state, null, 2);
+      }
+
+      copyStateJsonToClipboard() {
+        const ta = document.createElement('textarea');
+        ta.value = JSON.stringify(this.state, null, 2);
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        this.showToast('Copied JSON state to clipboard.', 'emerald');
+      }
+
+      exportFullJSON() {
+        const content = JSON.stringify(this.state, null, 2);
+        const dateStr = new Date().toISOString().slice(0, 10);
+        this.triggerFileDownload(`apex-v3-backup-${dateStr}.json`, content, 'application/json');
+        this.showToast('Exported JSON backup.', 'emerald');
+      }
+
+      importFullJSON(event) {
+        const file = event.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const parsed = JSON.parse(e.target.result);
+            if (!parsed.tasks || !parsed.skills || !parsed.decisions) {
+              this.showToast('Invalid APEX JSON file.', 'rose');
+              return;
+            }
+            this.state = parsed;
+            this.persistState();
+            this.renderAll();
+            this.closeSystemDrawer();
+            this.showToast('Restored workspace from JSON.', 'emerald');
+          } catch (err) {
+            this.showToast('Could not parse JSON file.', 'rose');
+          }
+        };
+        reader.readAsText(file);
+      }
+
+      exportCSV(collectionType) {
+        let rows = [];
+        if (collectionType === 'tasks') {
+          rows = [['ID', 'Date', 'Title', 'Category', 'PlannedMinutes', 'ActualMinutes', 'Completed', 'Obstacle', 'IfThenPlan']];
+          (this.state.tasks || []).forEach(t => {
+            rows.push([t.id, t.date, t.title, t.category, t.plannedMinutes, t.actualMinutes, t.completed, t.obstacle, t.ifThenPlan || '']);
+          });
+        } else if (collectionType === 'skills') {
+          rows = [['ID', 'ParentSkill', 'Subskill', 'DifficultyD', 'StabilityDays', 'RetrievabilityPct', 'MasteryPct', 'Prompt']];
+          (this.state.skills || []).forEach(s => {
+            const r = ApexScienceEngine.computeFSRSRetrievability(s.elapsedDaysSinceReview, s.stabilityDays);
+            rows.push([s.id, s.parentSkill, s.subskill, s.difficultyD, s.stabilityDays, r, s.demonstratedMastery, s.prompt]);
+          });
+        } else if (collectionType === 'decisions') {
+          rows = [['ID', 'Date', 'Title', 'Prediction', 'ProbabilityPct', 'Status', 'OutcomeBinary', 'BrierScore']];
+          (this.state.decisions || []).forEach(d => {
+            const bs = d.status === 'resolved' ? ApexScienceEngine.computeBrierScore(d.probability, d.outcome) : '';
+            rows.push([d.id, d.date, d.title, d.prediction, d.probability, d.status, d.outcome ?? '', bs]);
+          });
+        }
+        const csvContent = rows.map(r => r.map(cell => `"${String(cell ?? '').replace(/"/g, '""')}"`).join(',')).join('\n');
+        this.triggerFileDownload(`apex-${collectionType}.csv`, csvContent, 'text/csv');
+        this.showToast(`Exported ${collectionType} CSV.`, 'emerald');
+      }
+
+      triggerFileDownload(filename, content, mimeType) {
+        const blob = new Blob([content], { type: mimeType });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      openNightlyReviewModal() {
+        const modal = document.getElementById('nightlyReviewModal');
+        const list = document.getElementById('nightlyReviewTasksList');
+        if (!modal || !list) return;
+
+        const tasks = this.state.tasks || [];
+        if (tasks.length === 0) {
+          list.innerHTML = `<p class="text-xs text-muted-tone py-6 text-center">No tasks queued today.</p>`;
+        } else {
+          list.innerHTML = tasks.map(t => `
+            <div class="p-3.5 rounded-xl surface-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+              <div class="flex items-center gap-2.5">
+                <input type="checkbox" ${t.completed ? 'checked' : ''} onchange="window.apexApp.toggleTaskCompleted('${t.id}')" class="w-4 h-4 rounded accent-[var(--accent-sage)]" />
+                <div>
+                  <div class="font-medium">${this.escapeHtml(t.title)}</div>
+                  <div class="text-[11px] font-mono-num text-muted-tone">Planned ${t.plannedMinutes}m · ${this.escapeHtml(t.category)}</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <input type="number" min="0" step="5" value="${t.actualMinutes || ''}" placeholder="${t.plannedMinutes}m" onchange="window.apexApp.updateTaskActualMinutes('${t.id}', this.value)" class="w-16 input-quiet px-2 py-1 font-mono-num" />
+                <select onchange="window.apexApp.updateTaskObstacle('${t.id}', this.value)" class="input-quiet px-2 py-1">
+                  ${OBSTACLE_OPTIONS.map(opt => `<option value="${opt}" ${t.obstacle === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+                </select>
+              </div>
+            </div>
+          `).join('');
+        }
+        modal.classList.remove('hidden');
+      }
+
+      closeNightlyReviewModal() {
+        document.getElementById('nightlyReviewModal')?.classList.add('hidden');
+      }
+
+      finishNightlyReview() {
+        this.closeNightlyReviewModal();
+        this.switchTab('mirror');
+        this.showToast('Evening check-in saved.', 'emerald');
+      }
+
+      openSystemDrawer() {
+        document.getElementById('systemDrawerModal')?.classList.remove('hidden');
+      }
+      closeSystemDrawer() {
+        document.getElementById('systemDrawerModal')?.classList.add('hidden');
+      }
+
+      openGoalModal() {
+        document.getElementById('newGoalModal')?.classList.remove('hidden');
+      }
+      closeGoalModal() {
+        document.getElementById('newGoalModal')?.classList.add('hidden');
+      }
+
+      handleAddGoal(e) {
+        e.preventDefault();
+        const title = document.getElementById('goalTitleInput').value.trim();
+        const horizon = document.getElementById('goalHorizonInput').value.trim();
+        const metric = document.getElementById('goalMetricInput').value.trim();
+        const newGoal = { id: 'goal-' + Date.now(), title, horizon, metric, isSample: false };
+        this.state.goals.unshift(newGoal);
+        this.state.activeGoalId = newGoal.id;
+        e.target.reset();
+        this.closeGoalModal();
+        this.persistState();
+        this.renderAll();
+        this.showToast(`Set goal "${title}"`, 'emerald');
+      }
+
+      openShortcutsModal() {
+        document.getElementById('shortcutsModal')?.classList.remove('hidden');
+      }
+      closeShortcutsModal() {
+        document.getElementById('shortcutsModal')?.classList.add('hidden');
+      }
+
+      toggleTheme() {
+        const html = document.documentElement;
+        const isDark = html.classList.toggle('dark');
+        const icon = document.getElementById('themeToggleIcon');
+        if (icon) icon.className = isDark ? 'fa-solid fa-sun text-xs' : 'fa-solid fa-moon text-xs';
+        this.showToast(isDark ? 'Theme: Carbon Studio' : 'Theme: Editorial Paper', 'emerald');
+      }
+
+      bindKeyboardShortcuts() {
+        window.addEventListener('keydown', (e) => {
+          const tag = document.activeElement?.tagName?.toLowerCase();
+          if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+
+          if (e.key === '1') this.switchTab('execution');
+          else if (e.key === '2') this.switchTab('mirror');
+          else if (e.key === '3') this.switchTab('skills');
+          else if (e.key === '4') this.switchTab('decisions');
+          else if (e.key === '5') this.switchTab('weekly');
+          else if (e.key.toLowerCase() === 'n') {
+            e.preventDefault();
+            this.switchTab('execution');
+            document.getElementById('taskTitleInput')?.focus();
+          } else if (e.key.toLowerCase() === 'f') {
+            e.preventDefault();
+            this.toggleFocusTimer();
+          } else if (e.key.toLowerCase() === 'r') {
+            e.preventDefault();
+            this.openNightlyReviewModal();
+          } else if (e.key.toLowerCase() === 's') {
+            e.preventDefault();
+            this.openSystemDrawer();
+          } else if (e.key === '?') {
+            e.preventDefault();
+            this.openShortcutsModal();
+          } else if (e.key === 'Escape') {
+            this.closeNightlyReviewModal();
+            this.closeSystemDrawer();
+            this.closeGoalModal();
+            this.closeShortcutsModal();
+          }
+        });
+      }
+
+      showToast(message, tone = 'emerald') {
+        const container = document.getElementById('toastContainer');
+        if (!container) return;
+        const el = document.createElement('div');
+        const dotColor = tone === 'amber'
+          ? 'bg-[var(--accent-amber)]'
+          : tone === 'rose'
+            ? 'bg-[var(--accent-coral)]'
+            : 'bg-[var(--accent-sage)]';
+        el.className = 'pointer-events-auto px-4 py-2.5 rounded-xl surface-card shadow-lg text-xs font-medium flex items-center gap-2.5 transition-all';
+        el.innerHTML = `<span class="w-2 h-2 rounded-full ${dotColor}"></span><span>${this.escapeHtml(message)}</span>`;
+        container.appendChild(el);
+        setTimeout(() => {
+          el.style.opacity = '0';
+          setTimeout(() => el.remove(), 220);
+        }, 2800);
+      }
+
+      escapeHtml(str) {
+        return String(str ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+    }
+
+    window.onload = () => {
+      window.apexApp = new ApexApplication();
+    };
+  </script>
+</body>
+</html>
